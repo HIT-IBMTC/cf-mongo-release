@@ -1,0 +1,4 @@
+check process mongodb
+  with pidfile "/var/lib/mongodb/mongod.lock"
+  start program = "/sbin/start mongodb"
+  stop program = "/sbin/stop mongodb"

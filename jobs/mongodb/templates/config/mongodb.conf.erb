@@ -1,0 +1,27 @@
+systemLog:
+   destination: file
+   path: "<%= p("mongodb.systemLog.path") %>"
+   quiet: false
+   logAppend: true
+
+storage:
+  dbPath: "<%= p("mongodb.storage.dbPath") %>"
+  directoryPerDB: true
+  smallFiles: true
+  journal:
+    enabled: true
+
+<% if(p("mongodb.replSet.secured")) then %>
+security:
+    keyFile: "<%= p("mongodb.keyfile.path") %>"
+<% end %>
+
+net:
+  bindIp: <%= p("mongodb.net.bindIp") %>
+  port: <%= p("mongodb.net.port") %>
+
+<% if_p("mongodb.replSet.name") do %>
+replication:
+  replSetName: <%= p("mongodb.replSet.name") %>
+<% end %>
+

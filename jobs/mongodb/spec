@@ -1,0 +1,38 @@
+---
+name: mongodb
+
+packages:
+  - mongodb
+
+templates:
+  bin/monit_debugger: bin/monit_debugger
+  bin/mongodb_ctl: bin/mongodb_ctl
+  config/mongodb.conf.erb: config/mongodb.conf
+  config/mongodb-keyfile.erb: config/mongodb-keyfile
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+
+properties:
+  mongodb.net.bindIp:
+    description: IP address that MongoDB binds to in order to listen for connections
+    default: 0.0.0.0
+  mongodb.net.port:
+    description: TCP port on which the MongoDB instance listens for client connections
+    default: 27017
+  mongodb.storage.dbPath:
+    description: The directory where the mongod instance stores its data.
+    default: /var/vcap/store/mongodb
+  mongodb.systemLog.path:
+    description: Sends all diagnostic logging information to a log file instead of to standard output or to the host’s syslog system
+    default: /var/vcap/sys/log/mongodb/mongodb.log
+  mongodb.replSet.name:
+    description:  Specify a replica set name as an argument to this set.
+  mongodb.replSet.key:
+    description: Specify key which will be used in keyfile
+  mongodb.keyfile.path:
+    description: Specify path to kefile
+    default: /var/vcap/jobs/mongodb/config/mongodb-keyfile
+  mongodb.replSet.secured:
+    description: Specify if Replica Set will be secured
+    default: false

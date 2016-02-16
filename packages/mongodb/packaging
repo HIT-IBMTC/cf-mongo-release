@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+ # Available variables
+# $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
+# $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
+export HOME=/var/vcap
+
+ls -R
+env
+tar xf mongodb/mongodb-src-r3.2.1.tar.gz
+
+if command -v apt; then
+   APT=true
+fi
+
+if [ -z APT ]; then
+    sudo apt-get install scons build-essential libboost-filesystem-dev libboost-program-options-dev libboost-system-dev libboost-thread-dev
+    scons all
+    mv bin/* "$BOSH_INSTALL_TARGET"
+fi
+# Actually should I just add all the deb's as blobs then dpkg them?
