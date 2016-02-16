@@ -1,0 +1,2 @@
+properties:
+  mongodb_servers: (( grab jobs.mongodb.networks ))

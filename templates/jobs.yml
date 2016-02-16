@@ -9,15 +9,12 @@ update:
   serial: false
 
 jobs:
-  - name: just_install_packages
+  - name: mongodb
     templates:
-    - name: just_install_packages
-      release: sm-mongo
+    - name: mongodb
     instances: 1
     persistent_disk: 0
     resource_pool: small_z1
-    networks: (( param "please set just_install_package networks" ))
-
-networks: (( param "please set networks" ))
+    networks: (( static_ips(0) ))
 
 properties: {}

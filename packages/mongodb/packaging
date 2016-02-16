@@ -17,11 +17,17 @@ if [ "$UNAME" == "linux" ]; then
     if [ -f /etc/lsb-release -o -d /etc/lsb-release.d ]; then
         export DISTRO=$(lsb_release -i | cut -d: -f2 | sed s/'^\t'//)
     else
-        export DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cu$
+        export DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
     fi
 fi
 [ "$DISTRO" == "" ] && export DISTRO=$UNAME
 unset UNAME
+
+function trusty_install() {
+  pkg=mongodb-linux-x86_64-ubuntu1404-3.2.1.tgz
+  tar xf "$pkg"
+  cp ${pkg%.*}/bin/* "$BOSH_INSTALL_TARGET"
+}
 
 if [ "$DISTRO" == 'Ubuntu' ]; then
   RELEASE=$(lsb_release -r)
@@ -36,9 +42,3 @@ else
   >&2 echo "Can't work with $DISTRO. Update script or use a supported stemcell."
   exit 72
 fi
-
-function trusty_install() {
-  pkg=mongodb-linux-x86_64-ubuntu1404-3.2.1.tgz
-  tar xf "$pkg"
-  cp ${pkg%.*}/bin/* "$BOSH_INSTALL_TARGET"
-}
