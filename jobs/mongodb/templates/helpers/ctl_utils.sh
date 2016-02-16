@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Helper functions used by ctl scripts
 
 # links a job file (probably a config file) into a package

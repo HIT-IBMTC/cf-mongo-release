@@ -4,4 +4,4 @@ name: mongodb
 dependencies: []
 
 files:
-  - mongodb/mongodb-src-r3.2.1.tar.gz
+  - mongodb-linux-x86_64-ubuntu1404-3.2.1.tgz

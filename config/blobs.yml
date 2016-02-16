@@ -1,5 +1,6 @@
 ---
-mongodb-src-r3.2.1.tar.gz:
-  object_id: 619c2748-29a0-4b93-9e53-cecdfd50d0e1
-  sha: fedd44901f894c12965f0d4d74e857b7930b5b64
-  size: 26397562
+mongodb-linux-x86_64-ubuntu1404-3.2.1.tgz:
+  object_id: b3c4b205-4429-4e02-8f23-78815ea1e1cc
+  sha: b0b9f5370cf06a65b608d270969d419105e4778c
+  size: 75965465
+  

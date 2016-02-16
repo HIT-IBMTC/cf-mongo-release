@@ -8,17 +8,37 @@ set -u # report the usage of uninitialized variables
 # $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
 export HOME=/var/vcap
 
+# Debug commands
 ls -R
 env
-tar xf mongodb/mongodb-src-r3.2.1.tar.gz
 
-if command -v apt; then
-   APT=true
+UNAME=$(uname | tr "[:upper:]" "[:lower:]")
+if [ "$UNAME" == "linux" ]; then
+    if [ -f /etc/lsb-release -o -d /etc/lsb-release.d ]; then
+        export DISTRO=$(lsb_release -i | cut -d: -f2 | sed s/'^\t'//)
+    else
+        export DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cu$
+    fi
+fi
+[ "$DISTRO" == "" ] && export DISTRO=$UNAME
+unset UNAME
+
+if [ "$DISTRO" == 'Ubuntu' ]; then
+  RELEASE=$(lsb_release -r)
+  VERSION="${RELEASE##*[[:space:]]}"
+  unset RELEASE
+  if [ $VERSION != '14.04' ]; then
+    >&2 echo "Can't work with $DISTRO $VERSION. Update script or use a supported stemcell."
+    exit 72
+  fi
+  trusty_install;
+else
+  >&2 echo "Can't work with $DISTRO. Update script or use a supported stemcell."
+  exit 72
 fi
 
-if [ -z APT ]; then
-    sudo apt-get install scons build-essential libboost-filesystem-dev libboost-program-options-dev libboost-system-dev libboost-thread-dev
-    scons all
-    mv bin/* "$BOSH_INSTALL_TARGET"
-fi
-# Actually should I just add all the deb's as blobs then dpkg them?
+function trusty_install() {
+  pkg=mongodb-linux-x86_64-ubuntu1404-3.2.1.tgz
+  tar xf "$pkg"
+  cp ${pkg%.*}/bin/* "$BOSH_INSTALL_TARGET"
+}
