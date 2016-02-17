@@ -15,6 +15,19 @@ jobs:
     instances: 1
     persistent_disk: 0
     resource_pool: small_z1
-    networks: (( static_ips(0) ))
+    networks:
+      - name: sm_mongo1
+        static_ips: (( static_ips(0) ))
+  - name: register-broker
+    templates:
+    - name: register-broker
+    instances: 1
+    lifecycle: errand
+    resource_pool: small_z1
+    networks:
+      - name: sm_mongo1
+        static_ips: (( static_ips(1) ))
+    env:
+      MONGODB_IPS: (( grab jobs.mongodb.networks ))
 
 properties: {}

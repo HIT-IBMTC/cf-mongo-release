@@ -1,0 +1,27 @@
+---
+name: register-broker
+packages:
+  - cf-cli
+  - cf-mongo-broker
+templates:
+  errand.sh.erb: bin/run
+
+properties:
+  cf.api_endpoint:
+    description: 'Full URL of Cloud Foundry API'
+  cf.skip_ssl_verification:
+    description: 'Set if target CF uses self-signed certificates'
+  cf.user:
+    description: 'Name of the Cloud Foundry user'
+  cf.password:
+    description: 'Password of the Cloud Foundry user'
+  cf.org:
+    description: 'Cloud Foundry organization into which to install the broker app'
+  cf.space:
+    description: 'Cloud Foundry space into which to install the broker app'
+  cf.appname:
+    description: 'Application name for deployed broker app'
+  cf.hostname:
+    description: 'Hostname for deployed broker app (sub-domain)'
+  cf.domain:
+    description: Specific domain to generate route with hostname; default determined by target Cloud Foundry
