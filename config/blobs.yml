@@ -1,6 +1,13 @@
 ---
-mongodb-linux-x86_64-ubuntu1404-3.2.1.tgz:
-  object_id: b3c4b205-4429-4e02-8f23-78815ea1e1cc
-  sha: b0b9f5370cf06a65b608d270969d419105e4778c
-  size: 75965465
-  
+cf-cli/cf-cli-6.15.0.tar.gz:
+  object_id: f34bbaee-87a9-46fb-939d-a758d0a94c9a
+  sha: ea9477a5336baef3b554c2c8767dcb4224b22226
+  size: 5644552
+mongodb/mongodb-linux-x86_64-ubuntu1404-3.2.3.tgz:
+  object_id: bbab61e0-0abb-45ee-a734-2828e3511ea3
+  sha: 10779f5c26f766612471f6cab1a1b97a30ffa5c7
+  size: 76053192
+cf-mongo-broker-dist/cf-mongo-broker-dist.tar.gz:
+  object_id: 22afb3c9-9600-4fa6-8c41-240ed37a54d3
+  sha: 3fde554119b2ba5eb7b6726337192f8d6f06c727
+  size: 96617

@@ -1,2 +1,9 @@
 properties:
   mongodb_servers: (( grab jobs.mongodb.networks ))
+  cf:
+    api_endpoint: api.bosh-lite.com
+    skip_ssl_verification: true
+    user: admin
+    password: admin
+    org: foo_org
+    space: foo_space

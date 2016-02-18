@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+package='cf-mongo-broker-dist'
+file="$package.tar.gz"
+url="https://robotalien:kB3dsP2kwpQVZM@api.github.com/repos/Anatas/$package/tarball"
+
+if [ ! -s "$package/$file" ]; then
+  mkdir -p "$package"
+  wget -qO "$package/$file" --content-disposition "$url"
+fi

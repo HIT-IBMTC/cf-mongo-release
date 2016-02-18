@@ -1,22 +1,19 @@
 # BOSH Release for sm-mongo
 
-MongoDB bosh release, submoduling cf-mongo-broker.
-
-# Usage
-
-Clone this repository, `cd` to it, then run:
-
-    git submodule init
-    git submodule update
+MongoDB bosh release. See also: [cf-mongo-broker](https://github.com/Anatas/cf-mongo-broker).
 
 ## Usage
 
-To use this bosh release, first upload it to your bosh:
+```
+git clone https://github.com/Anatas/sm-mongo-boshrelease.git
+cd sm-mongo-boshrelease
+```
 
+You may want to start by editing templates/properties.yml. Next upload it to your bosh:
 ```
 bosh target BOSH_HOST
-git clone https://github.com/cloudfoundry-community/sm-mongo-boshrelease.git
-cd sm-mongo-boshrelease
+./sm_mongo_boshrelease_dev.bash prepare
+bosh upload blobs
 bosh upload release releases/sm-mongo-1.yml
 ```
 

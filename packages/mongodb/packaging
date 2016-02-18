@@ -24,9 +24,11 @@ fi
 unset UNAME
 
 function trusty_install() {
-  pkg=mongodb-linux-x86_64-ubuntu1404-3.2.1.tgz
-  tar xf "$pkg"
-  cp ${pkg%.*}/bin/* "$BOSH_INSTALL_TARGET"
+  pkg=$(find -name 'mongodb-linux-x86_64-ubuntu1404*.tgz' -print -quit)
+  tar xfv "$pkg"
+  >&2 echo "pkg=$pkg, pwd=$PWD, ls=$(ls)"
+  filename=$(basename "$pkg")
+  cp ${filename%.*}/bin/* "$BOSH_INSTALL_TARGET"
 }
 
 if [ "$DISTRO" == 'Ubuntu' ]; then

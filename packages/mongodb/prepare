@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+
+package='mongodb'
+version='ubuntu1404-3.2.3'
+file="$package-linux-x86_64-$version.tgz"
+url="https://fastdl.mongodb.org/linux/$file"
+
+if [ ! -s "$package/$file" ]; then
+  mkdir -p "$package"
+  wget -qO "$package/$file" --content-disposition "$url"
+fi
