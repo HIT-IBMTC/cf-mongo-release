@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e -u
+set -e
 
 fail() { echo -e "$*" ; exit 1 ; }
 
@@ -20,11 +20,6 @@ bosh_target_check() {
       fail "A bosh director is not targeted, please target a director and login then try again."
       ;;
   esac
-}
-
-latest_uploaded_stemcell() {
-  bosh stemcells | awk "/bosh/&&/${stemcellOS}/" | awk -F'|' '{ print $2, $3 }' |
-    sort -nr -k2 | head -n1 | awk '{ print $1 }'
 }
 
 usage() {
@@ -68,127 +63,11 @@ prepare_blobs() {
   done
 }
 
-prepare_stemcell() {
-  select_infrastructure $*
-
-  stemcellOS=${stemcellOS:-"centos"}
-  directorCPI=$(bosh status | awk '/CPI/{print $2}')
-  directorUUID=$(awk -F: '/target_uuid/{print $2}' ~/.bosh_config | tr -d ' ')
-  directorName=$(awk -F: '/target_name/{print $2}' ~/.bosh_config)
-  deploymentName="${releaseName}-${infrastructure}"
-
-
-  [[ -d ${tmpPath} ]] || mkdir -p ${tmpPath}
-
-  case ${infrastructure} in
-    (aws-ec2)
-      if [[ ${directorCPI} != aws ]]
-      then fail "No AWS BOSH Director targeted. Please use 'bosh target' first."
-      fi
-      hypervisor="xen"
-      case ${stemcellOS} in
-        (ubuntu)
-          stemcellURL="http://bosh.io/stemcells/bosh-aws-xen-light-ubuntu-trusty-go_agent"
-          ;;
-        (centos)
-          stemcellURL="http://bosh.io/stemcells/bosh-aws-xen-light-centos-7-go_agent"
-          ;;
-        (*)
-          fail "Unknown Stemcell OS '${stemcellOS}'"
-          ;;
-      esac
-      ;;
-    (warden)
-      if ! [[ "${directorName}" =~ "Bosh Lite Director" ]]
-      then fail "No BOSH Lite  bosh-lite with warden CPI.\nPlease use 'bosh target' first."
-      fi
-      hypervisor="warden"
-      case ${stemcellOS} in
-        (ubuntu)
-          stemcellURL="https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent"
-          ;;
-        (centos)
-          stemcellURL="https://bosh.io/d/stemcells/bosh-warden-boshlite-centos-go_agent"
-          ;;
-        (*)
-          fail "Unknown Stemcell OS '${stemcellOS}'"
-          ;;
-      esac
-      ;;
-    (*)
-      usage
-      fail
-      ;;
-  esac
-  shift
-
-  stemcell=${stemcell:-$(latest_uploaded_stemcell)}
-  if [[ -z ${stemcell} ]]
-  then
-    stemcellFile="${stemcellsPath}/$(basename ${stemcellURL}).tar.gz"
-    if [[ -s ${stemcellFile} ]]
-    then
-      echo -e "\nUploading local stemcell ${stemcellFile}..."
-      bosh upload stemcell ${stemcellFile}
-    else
-      echo -e "\nUploading latest ${hypervisor}/${stemcellOS} stemcell..."
-      bosh upload stemcell ${stemcellURL}
-    fi
-    stemcell=$(latest_uploaded_stemcell)
-  fi
-}
-
 prepare_dev_release() {
   echo "bosh create release --with-tarball --force"
   bosh create release --with-tarball --force
   echo "bosh -n upload release"
   bosh -n upload release
-}
-
-prepare_manifest() {
-  target=${1:-} ; shift
-  select_infrastructure ${target}
-  prepare_stemcell ${target}
-
-  releaseName=$(basename $PWD | sed -e 's/-boshrelease//')
-  directorCPI=$(bosh status | awk '/CPI/{print $2}')
-  directorUUID=$(awk -F: '/target_uuid/{print $2}' ~/.bosh_config | tr -d ' ')
-  directorName=$(awk -F: '/target_name/{print $2}' ~/.bosh_config)
-  deploymentName="${releaseName}-${infrastructure}"
-
-  requireCommands spruce bosh
-  echo "Preparing to build the manifest... "
-
-  cat > "${tmpPath}/auto.yml" <<EOS
----
-meta:
-  environment: ${releaseName}-${ENVIRONMENT:-"dev"}
-  stemcell: ${stemcell}
-  security_groups:
-    - ${releaseName}
-name: ${releaseName}
-director_uuid: ${directorUUID}
-releases:
-  - name: ${releaseName}
-    version: latest
-EOS
-
-  echo "Merging templates using spruce..."
-
-  spruce merge --prune meta \
-    "${templatesPath}/deployment.yml" \
-    "${tmpPath}/auto.yml" \
-    "${templatesPath}/jobs.yml" \
-    "${templatesPath}/infrastructure/${infrastructure}.yml" \
-    $* > "${manifestsPath}/${deploymentName}-manifest.yml"
-
-  rm "${tmpPath}/auto.yml"
-
-  echo bosh deployment "${manifestsPath}/${deploymentName}-manifest.yml"
-  bosh deployment "${manifestsPath}/${deploymentName}-manifest.yml"
-
-  echo "bosh status"
-  bosh status
 }
 
 if [[ ${DEBUG:-"false"} == "true" ]]
@@ -216,7 +95,7 @@ fi
 bosh_target_check
 bosh_cli_check
 
-declare -a args=(args)
+declare -a args
 if (( ${#@} ))
 then args=($(echo "${@}"))
 fi
@@ -229,8 +108,6 @@ case ${action} in
     fi
     prepare_blobs
     prepare_dev_release
-    prepare_stemcell "${args[@]}"
-    prepare_manifest "${args[@]}"
     ;;
   (release|dev)
     prepare_dev_release
@@ -238,25 +115,9 @@ case ${action} in
   (blobs)
     prepare_blobs
     ;;
-  (stemcell)
-    if (( ${#args[@]} == 0 ))
-    then
-      usage
-      fail
-    fi
-    prepare_stemcell "${args[@]}"
-    ;;
-  (manifest)
-    if (( ${#args[@]} == 0 ))
-    then
-      usage
-      fail
-    fi
-    prepare_manifest "${args[@]}"
-    ;;
   (destroy|delete)
-    echo "bosh -n delete deployment rabbitmq-smoke-tests --force"
-    bosh -n delete deployment rabbitmq-smoke-tests --force
+    echo "bosh -n delete deployment sm-mongo-warden --force"
+    bosh -n delete deployment sm-mongo-warden --force
     ;;
   (*)
     usage

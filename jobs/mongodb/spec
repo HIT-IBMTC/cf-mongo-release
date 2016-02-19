@@ -36,3 +36,15 @@ properties:
   mongodb.replSet.secured:
     description: Specify if Replica Set will be secured
     default: false
+  mongodb.MONGODB_USER:
+    description: 'MongoDB username'
+  mongodb.MONGODB_PASS:
+    description: 'MongoDB password'
+  mongodb.MONGODB_PORT:
+    description: 'MongoDB port. mongodb.net.port reads this.'
+  mongodb.MONGODB_DATABASE:
+    description: 'MongoDB database'
+  mongodb.MONGODB_HOST:
+    description: 'MongoDB hostname'
+  mongodb.MONGODB_URI:
+    description: 'MongoDB URI'

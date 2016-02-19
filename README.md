@@ -12,7 +12,7 @@ cd sm-mongo-boshrelease
 You may want to start by editing templates/properties.yml. Next upload it to your bosh:
 ```
 bosh target BOSH_HOST
-./sm_mongo_boshrelease_dev.bash prepare
+./sm_mongo_boshrelease_dev.bash prepare warden
 bosh upload blobs
 bosh upload release releases/sm-mongo-1.yml
 ```

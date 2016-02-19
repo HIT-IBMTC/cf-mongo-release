@@ -1,13 +1,17 @@
 ---
-cf-cli/cf-cli-6.15.0.tar.gz:
-  object_id: f34bbaee-87a9-46fb-939d-a758d0a94c9a
-  sha: ea9477a5336baef3b554c2c8767dcb4224b22226
-  size: 5644552
 mongodb/mongodb-linux-x86_64-ubuntu1404-3.2.3.tgz:
-  object_id: bbab61e0-0abb-45ee-a734-2828e3511ea3
+  object_id: f4b2927e-1967-4889-8276-bc74be589ca6
   sha: 10779f5c26f766612471f6cab1a1b97a30ffa5c7
   size: 76053192
+spruce/spruce:
+  object_id: 3d0db889-cf70-4f94-9c71-e92f4c43463d
+  sha: 5f34835d9e3aad0c16f5dcff447dfbc09a64a20a
+  size: 8331752
+cf-cli/cf-cli-6.15.0.tar.gz:
+  object_id: 7947551d-7eea-424b-8efa-ad6a0956b219
+  sha: ea9477a5336baef3b554c2c8767dcb4224b22226
+  size: 5644552
 cf-mongo-broker-dist/cf-mongo-broker-dist.tar.gz:
-  object_id: 22afb3c9-9600-4fa6-8c41-240ed37a54d3
-  sha: 3fde554119b2ba5eb7b6726337192f8d6f06c727
-  size: 96617
+  object_id: f3e4b175-20bf-4969-ae9e-9f6f0e7605c9
+  sha: ace568cc677fed4e68330e5dd0be16a49c4105aa
+  size: 100998

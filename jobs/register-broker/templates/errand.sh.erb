@@ -3,7 +3,7 @@
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
-PATH=$PATH:/var/vcap/packages/cf-cli/bin # add cf to PATH
+PATH=$PATH:/var/vcap/packages/cf-cli/bin:/var/vcap/packages/spruce/bin # add `cf` and `spruce` to PATH
 
 builtin cd "$(find /var/vcap/data/packages/cf-mongo-broker-dist -type f -name package.json -printf "%h" -quit)"
 
@@ -24,4 +24,18 @@ cf login \
   -a '<%= p('cf.api_endpoint') %>' \
   -u '<%= p('cf.user') %>'
 
-cf push
+domain=$(cf domains); domain=($domain); domain="${domain[9]}"
+
+cat > env.yml << EOF
+---
+env: <%= p('mongodb.env') %>
+EOF
+
+spruce merge manifest.yml env.yml > new_manifest.yml
+
+cf push -f new_manifest.yml
+
+# TODO: Figure out `http` vs `https`
+cf create-service-broker mongo-3.2 monguser mongpass "http://cf-mongo-broker.$domain"
+cf enable-service-access mongo-3.2
+cf create-service mongo-3.2 small mongo-broker-db
