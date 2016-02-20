@@ -23,5 +23,5 @@ cf login \
   -u '<%= p('cf.user') %>'
 
 cf disable-service-access mongo-3.2
-cf delete-service mongo-broker-db
-cf delete-service-broker mongo-3.2
+cf delete-service mongo-broker-db -f
+cf delete-service-broker mongo-3.2 -f

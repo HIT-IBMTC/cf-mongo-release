@@ -42,6 +42,15 @@ while read -rd '' f; do
     seen_dir["${f%/*}"]=1
 done < <(find "/var/vcap/data/packages" -type f -executable -print0)
 export PATH="${!seen_dir[@]}:$PATH"
+#>&2 env
+#mongo -u username -p password admin --eval "db.getSiblingDB('new_db').addUser(<%=p('mongodb.MONGODB_USER')%>, <%=p('mongodb.MONGODB_PASS')%>)"
+#mongo admin --authenticationDatabase admin --eval 'db.createUser({user: "<%=p('mongodb.MONGODB_USER')%>", pwd: "<%=p('mongodb.MONGODB_PASS')%>", roles: ["root"]})'
+
+cat > create_user.js << EOF
+use admin;
+
+db.createUser({user: "<%=p('mongodb.MONGODB_USER')%>", pwd: "<%=p('mongodb.MONGODB_PASS')%>", roles: ["root"]});
+EOF
 
 # Setup log, run and tmp folders
 export RUN_DIR=/var/vcap/sys/run/$JOB_NAME

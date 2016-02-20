@@ -27,8 +27,7 @@ cf login \
 domain=$(cf domains); domain=($domain); domain="${domain[9]}"
 
 cat > env.yml << EOF
----
-env: <%= p('mongodb.env') %>
+<%= {'env' => p('mongodb')}.to_yaml %>
 EOF
 
 spruce merge manifest.yml env.yml > new_manifest.yml
