@@ -13,9 +13,6 @@ storage:
 
 security:
   authorization: enabled
-<% if(p("mongodb.MONGODB_REPLSET_SECURED")) then %>
-    keyFile: "<%= p("mongodb.MONGODB_KEYFILE") %>"
-<% end %>
 
 net:
   bindIp: <%= p("mongodb.MONGODB_BINDIP") %>

@@ -9,9 +9,9 @@ update:
   serial: false
 
 jobs:
-  - name: mongodb
+  - name: mongod
     templates:
-    - name: mongodb
+    - name: mongod
     instances: 1
     persistent_disk: 0
     resource_pool: small_z1
@@ -20,7 +20,7 @@ jobs:
         static_ips: (( static_ips(0) ))
     env:
       MONGODB_USER: (( grab properties.env.MONGODB_USER || "monguser" ))
-      MONGODB_PASS: (( grab properties.env.MONGODB_USER || "mongpass" ))
+      MONGODB_PASS: (( grab properties.env.MONGODB_PASS || "mongpass" ))
       MONGODB_PORT: (( grab properties.env.MONGODB_PORT || 27017 ))
       MONGODB_DATABASE: (( grab properties.env.MONGODB_DATABASE || "test" ))
       MONGODB_HOST: (( grab jobs.mongodb.networks[0].static_ips[0] ))

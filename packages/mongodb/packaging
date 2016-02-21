@@ -8,10 +8,6 @@ set -u # report the usage of uninitialized variables
 # $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
 export HOME=/var/vcap
 
-# Debug commands
-ls -R
-env
-
 UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 if [ "$UNAME" == "linux" ]; then
     if [ -f /etc/lsb-release -o -d /etc/lsb-release.d ]; then
