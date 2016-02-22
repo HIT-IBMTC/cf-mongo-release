@@ -1,14 +1,13 @@
 ---
-name: mongod
+name: create-user
+
+dependencies: []
+
+packages:
+  - mongod
 
 templates:
-  bin/monit_debugger: bin/monit_debugger
-  bin/mongodb_ctl: bin/mongodb_ctl
-  config/mongodb.conf.erb: config/mongodb.conf
-  config/mongodb-keyfile.erb: config/mongodb-keyfile
-  data/properties.sh.erb: data/properties.sh
-  helpers/ctl_setup.sh.erb: helpers/ctl_setup.sh
-  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+  errand.sh.erb: bin/run
 
 properties:
   mongod.MONGODB_BINDIP:

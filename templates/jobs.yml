@@ -23,16 +23,26 @@ jobs:
       MONGODB_PASS: (( grab properties.env.MONGODB_PASS || "mongpass" ))
       MONGODB_PORT: (( grab properties.env.MONGODB_PORT || 27017 ))
       MONGODB_DATABASE: (( grab properties.env.MONGODB_DATABASE || "test" ))
-      MONGODB_HOST: (( grab jobs.mongodb.networks[0].static_ips[0] ))
-      MONGODB_URI: (( concat "mongodb://" jobs.mongodb.env.MONGODB_USER ":" jobs.mongodb.env.MONGODB_PASS "@" jobs.mongodb.env.MONGODB_HOST ":" jobs.mongodb.env.MONGODB_PORT "/" jobs.mongodb.env.MONGODB_DATABASE ))
+      MONGODB_HOST: (( grab jobs.mongod.networks[0].static_ips[0] ))
+      MONGODB_URI: (( concat "mongodb://" jobs.mongod.env.MONGODB_USER ":" jobs.mongod.env.MONGODB_PASS "@" jobs.mongod.env.MONGODB_HOST ":" jobs.mongod.env.MONGODB_PORT "/" jobs.mongod.env.MONGODB_DATABASE ))
       MONGODB_BINDIP: 0.0.0.0
       MONGODB_STORAGE_DBPATH: (( grab properties.env.MONGODB_DBPATH || "/var/vcap/store/mongodb" ))
       MONGODB_SYSTEMLOG: (( grab properties.env.MONGODB_SYSTEMLOG || "/var/vcap/sys/log/mongodb/mongodb.log" ))
-      MONGODB_KEYFILE: (( grab properties.env.MONGODB_KEYFILE || "/var/vcap/jobs/mongodb/config/mongodb-keyfile" ))
+      MONGODB_KEYFILE: (( grab properties.env.MONGODB_KEYFILE || "/var/vcap/jobs/mongod/config/mongodb-keyfile" ))
       MONGODB_REPLSET_DISABLED: true
       MONGODB_REPLSET_SECURED: false
       MONGODB_REPLSET_KEY: ''
       MONGODB_REPLSET_NAME: ''
+  - name: create-user
+    templates:
+    - name: create-user
+    instances: 1
+    lifecycle: errand
+    resource_pool: small_z1
+    networks:
+      - name: sm_mongo1
+        static_ips: (( static_ips(1) ))
+    env: (( grab jobs.mongod.env ))
   - name: register-broker
     templates:
     - name: register-broker
@@ -41,7 +51,7 @@ jobs:
     resource_pool: small_z1
     networks:
       - name: sm_mongo1
-        static_ips: (( static_ips(1) ))
+        static_ips: (( static_ips(2) ))
   - name: deregister-broker
     templates:
     - name: deregister-broker
@@ -50,6 +60,6 @@ jobs:
     resource_pool: small_z1
     networks:
       - name: sm_mongo1
-        static_ips: (( static_ips(2) ))
+        static_ips: (( static_ips(3) ))
 
 properties: {}

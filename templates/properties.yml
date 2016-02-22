@@ -1,5 +1,5 @@
 properties:
-  mongodb: (( grab jobs.mongodb.env ))
+  mongod: (( grab jobs.mongod.env ))
   cf:
     api_endpoint: (( grab properties.custom_cf.api_endpoint || "api.bosh-lite.com" ))
     skip_ssl_verification: (( grab properties.custom_cf.skip_ssl_verification || true ))

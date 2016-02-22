@@ -1,11 +1,11 @@
 systemLog:
    destination: file
-   path: "<%= p("mongodb.MONGODB_SYSTEMLOG") %>"
+   path: "<%= p("mongod.MONGODB_SYSTEMLOG") %>"
    quiet: false
    logAppend: true
 
 storage:
-  dbPath: "<%= p("mongodb.MONGODB_STORAGE_DBPATH") %>"
+  dbPath: "<%= p("mongod.MONGODB_STORAGE_DBPATH") %>"
   directoryPerDB: true
   smallFiles: true
   journal:
@@ -15,5 +15,5 @@ security:
   authorization: enabled
 
 net:
-  bindIp: <%= p("mongodb.MONGODB_BINDIP") %>
-  port: <%= p("mongodb.MONGODB_PORT") %>
+  bindIp: <%= p("mongod.MONGODB_BINDIP") %>
+  port: <%= p("mongod.MONGODB_PORT") %>

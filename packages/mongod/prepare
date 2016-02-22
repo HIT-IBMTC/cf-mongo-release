@@ -6,7 +6,7 @@ version='ubuntu1404-3.2.3'
 file="$package-linux-x86_64-$version.tgz"
 url="https://fastdl.mongodb.org/linux/$file"
 
-if [ ! -s "$package/$file" ]; then
-  mkdir -p "$package"
-  wget -qO "$package/$file" --content-disposition "$url"
+if [ ! -s "${package::-1}/$file" ]; then
+  mkdir -p "${package::-1}"
+  wget -qO "${package::-1}/$file" --content-disposition "$url"
 fi

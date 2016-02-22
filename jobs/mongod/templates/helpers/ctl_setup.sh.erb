@@ -40,18 +40,6 @@ while read -rd '' f; do
 done < <(find "/var/vcap/data/packages" -type f -executable -print0)
 export PATH="${!seen_dir[@]}:$PATH"
 
-cat > create_user.js << EOF
-use admin;
-
-db.createUser({user: "<%=p('mongodb.MONGODB_USER')%>", pwd: "<%=p('mongodb.MONGODB_PASS')%>", roles: ["root"]});
-EOF
-
-#printf '%s\n' 'use admin;' 'db.createUser({user: "<%=p('mongodb.MONGODB_USER')%>", pwd: "<%=p('mongodb.MONGODB_PASS')%>", roles: ["root"]});' | mongo -
-
-#printf '%s\n' 'use admin;' 'db.createUser({user: "<%=p('mongodb.MONGODB_USER')%>", pwd: "<%=p('mongodb.MONGODB_PASS')%>", roles: ["root"]});' | mongo -u admin --authenticationDatabase admin -
-
-printf '%s\n' 'use admin;' 'db.createUser({user: "aca", pwd: "bbb", roles: ["root"]});' | sudo -u vcap mongo -
-
 # Setup log, run and tmp folders
 export RUN_DIR=/var/vcap/sys/run/$JOB_NAME
 export LOG_DIR=/var/vcap/sys/log/$JOB_NAME

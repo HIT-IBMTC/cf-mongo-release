@@ -1,0 +1,37 @@
+#!/bin/bash
+set -e
+
+JOB_NAME='create-user'
+export LOG_DIR=/var/vcap/sys/log/$JOB_NAME
+export TMP_DIR=/var/vcap/sys/tmp/$JOB_NAME
+for dir in $LOG_DIR $TMP_DIR
+do
+  mkdir -p ${dir}
+  chown vcap:vcap ${dir}
+  chmod 775 ${dir}
+done
+
+declare -A seen_dir
+while read -rd '' f; do
+    seen_dir["${f%/*}"]=1
+done < <(find "/var/vcap/data/packages" -type f -executable -print0)
+export PATH="${!seen_dir[@]}:$PATH"
+
+MONGO_PORT=<%= p("mongod.MONGODB_PORT") %>
+
+TMP_SCRIPT="$TMP_DIR/create_user.js"
+
+cat << EOF > $TMP_SCRIPT
+db.system.users.find({"user": "<% p("mongod.MONGODB_USER") %>"}).count()  == 0? db.createUser({
+    "user" : "<% p("mongod.MONGODB_USER") %>",
+    "pwd" : "<% p("mongod.MONGODB_PASS") %>",
+    "roles" : ["root"]
+}) : db.updateUser("<% p("mongod.MONGODB_USER") %>", {
+    "pwd" : "<% p("mongod.MONGODB_PASS") %>",
+    "roles" : ["root"]
+});
+EOF
+
+cat $TMP_SCRIPT
+
+mongo admin $TMP_SCRIPT
