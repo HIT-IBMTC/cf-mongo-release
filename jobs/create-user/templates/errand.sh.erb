@@ -18,20 +18,17 @@ done < <(find "/var/vcap/data/packages" -type f -executable -print0)
 export PATH="${!seen_dir[@]}:$PATH"
 
 MONGO_PORT=<%= p("mongod.MONGODB_PORT") %>
+MONGO_HOST=<%= p("mongod.MONGODB_HOST") %>
 
 TMP_SCRIPT="$TMP_DIR/create_user.js"
 
 cat << EOF > $TMP_SCRIPT
-db.system.users.find({"user": "<% p("mongod.MONGODB_USER") %>"}).count()  == 0? db.createUser({
-    "user" : "<% p("mongod.MONGODB_USER") %>",
-    "pwd" : "<% p("mongod.MONGODB_PASS") %>",
-    "roles" : ["root"]
-}) : db.updateUser("<% p("mongod.MONGODB_USER") %>", {
-    "pwd" : "<% p("mongod.MONGODB_PASS") %>",
-    "roles" : ["root"]
-});
+db.system.users.find({"user": "<%= p("mongod.MONGODB_USER") %>"}).count()  == 0? db.createUser({"user" : "<%= p("mongod.MONGODB_USER") %>", "pwd" : "<%= p("mongod.MONGODB_PASS") %>", "roles" : ["root"]}) : db.updateUser("<%= p("mongod.MONGODB_USER") %>", {"pwd" : "<%= p("mongod.MONGODB_PASS") %>","roles" : ["root"]});
+//mongo -u admin "<%= p("mongod.MONGODB_HOST") %>" "$TMP_SCRIPT"
+//printf '%s\n' 'db.createUser({"user": "<%= p("mongod.MONGODB_USER") %>", "pwd": "<%= p("mongod.MONGODB_PASS") %>", "roles": ["root"]});' | mongo -u admin "<%= p("mongod.MONGODB_HOST") %>" -
+//printf '%s\n' 'use admin' 'db.system.users.find({"user": "<%= p("mongod.MONGODB_USER") %>"}).count()  == 0? db.createUser({"user" : "<%= p("mongod.MONGODB_USER") %>", "pwd" : "<%= p("mongod.MONGODB_PASS") %>", "roles" : ["root"]}) : db.updateUser("<%= p("mongod.MONGODB_USER") %>", {"pwd" : "<%= p("mongod.MONGODB_PASS") %>","roles" : ["root"]}); | mongo -
 EOF
 
 cat $TMP_SCRIPT
 
-mongo admin $TMP_SCRIPT
+#printf '%s\n' 'db.system.users.find({"user": "<%= p("mongod.MONGODB_USER") %>"}).count()  == 0? db.createUser({"user" : "<%= p("mongod.MONGODB_USER") %>", "pwd" : "<%= p("mongod.MONGODB_PASS") %>", "roles" : ["root"]}) : db.updateUser("<%= p("mongod.MONGODB_USER") %>", {"pwd" : "<%= p("mongod.MONGODB_PASS") %>","roles" : ["root"]});' | mongo -u admin "<%= p("mongod.MONGODB_HOST") %>" -

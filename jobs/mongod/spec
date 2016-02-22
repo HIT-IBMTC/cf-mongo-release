@@ -1,14 +1,17 @@
 ---
 name: mongod
 
+packages:
+  - mongod
+
 templates:
   bin/monit_debugger: bin/monit_debugger
-  bin/mongodb_ctl: bin/mongodb_ctl
-  config/mongodb.conf.erb: config/mongodb.conf
-  config/mongodb-keyfile.erb: config/mongodb-keyfile
+  bin/mongod_ctl: bin/mongod_ctl
+  config/mongod.conf.erb: config/mongod.conf
   data/properties.sh.erb: data/properties.sh
   helpers/ctl_setup.sh.erb: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
+  helpers/create_user.sh.erb: helpers/create_user.sh
 
 properties:
   mongod.MONGODB_BINDIP:
@@ -19,10 +22,10 @@ properties:
     default: 27017
   mongod.MONGODB_STORAGE_DBPATH:
     description: The directory where the mongod instance stores its data.
-    default: /var/vcap/store/mongodb
+    default: /var/vcap/store/mongod
   mongod.MONGODB_SYSTEMLOG:
     description: Sends all diagnostic logging information to a log file instead of to standard output or to the host’s syslog system
-    default: /var/vcap/sys/log/mongodb/mongod.log
+    default: /var/vcap/sys/log/mongod/mongod.log
   mongod.MONGODB_REPLSET_NAME:
     description:  Specify a replica set name as an argument to this set.
   mongod.MONGODB_REPLSET_KEY:
@@ -30,9 +33,6 @@ properties:
   mongod.MONGODB_REPLSET_SECURED:
     description: Specify if Replica Set will be secured
     default: false
-  mongod.MONGODB_KEYFILE:
-    description: Specify path to kefile
-    default: /var/vcap/jobs/mongod/config/mongodb-keyfile
   mongod.MONGODB_USER:
     description: 'MongoDB username'
   mongod.MONGODB_PASS:

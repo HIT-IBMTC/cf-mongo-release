@@ -1,8 +1,6 @@
 ---
 name: create-user
 
-dependencies: []
-
 packages:
   - mongod
 
@@ -10,28 +8,9 @@ templates:
   errand.sh.erb: bin/run
 
 properties:
-  mongod.MONGODB_BINDIP:
-    description: IP address that MongoDB binds to in order to listen for connections
-    default: 0.0.0.0
   mongod.MONGODB_PORT:
     description: TCP port on which the MongoDB instance listens for client connections
     default: 27017
-  mongod.MONGODB_STORAGE_DBPATH:
-    description: The directory where the mongod instance stores its data.
-    default: /var/vcap/store/mongodb
-  mongod.MONGODB_SYSTEMLOG:
-    description: Sends all diagnostic logging information to a log file instead of to standard output or to the host’s syslog system
-    default: /var/vcap/sys/log/mongodb/mongod.log
-  mongod.MONGODB_REPLSET_NAME:
-    description:  Specify a replica set name as an argument to this set.
-  mongod.MONGODB_REPLSET_KEY:
-    description: Specify key which will be used in keyfile
-  mongod.MONGODB_REPLSET_SECURED:
-    description: Specify if Replica Set will be secured
-    default: false
-  mongod.MONGODB_KEYFILE:
-    description: Specify path to kefile
-    default: /var/vcap/jobs/mongod/config/mongodb-keyfile
   mongod.MONGODB_USER:
     description: 'MongoDB username'
   mongod.MONGODB_PASS:
