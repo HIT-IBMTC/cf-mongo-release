@@ -36,25 +36,29 @@ export HOME=${HOME:-/home/vcap}
 declare -A seen_dir
 while read -rd '' f; do
     seen_dir["${f%/*}"]=1
-done < <(find "/var/vcap/data/packages" -type f -executable -print0)
+done < <(find /var/vcap/data/packages -type f -executable -print0)
 export PATH="${!seen_dir[@]}:$PATH"
-
-# Keyfile
-openssl rand -base64 741 > /srv/mongodb/mongodb-keyfile
-chmod 600 /srv/mongodb/mongodb-keyfile
 
 # Setup log, run and tmp folders
 export RUN_DIR=/var/vcap/sys/run/$JOB_NAME
 export LOG_DIR=/var/vcap/sys/log/$JOB_NAME
 export TMP_DIR=/var/vcap/sys/tmp/$JOB_NAME
 export STORE_DIR=/var/vcap/store/$JOB_NAME
-for dir in $RUN_DIR $LOG_DIR $TMP_DIR $STORE_DIR
+for dir in $RUN_DIR $LOG_DIR $TMP_DIR $STORE_DIR /var/vcap/jobs/mongodb/config
 do
   mkdir -p ${dir}
   chown vcap:vcap ${dir}
   chmod 775 ${dir}
 done
-chmod +x /var/vcap/jobs/mongod/helpers/create_user.sh
+
+# Keyfile
+keyfile=/var/vcap/jobs/mongodb/config/mongodb-keyfile
+openssl rand -base64 741 > "$keyfile"
+chmod 600 "$keyfile"
+chown vcap:vcap "$keyfile"
+
+#chmod +x /var/vcap/jobs/mongod/helpers/cu_ctl.sh
+
 export TMPDIR=$TMP_DIR
 
 PIDFILE=$RUN_DIR/$JOB_NAME.pid

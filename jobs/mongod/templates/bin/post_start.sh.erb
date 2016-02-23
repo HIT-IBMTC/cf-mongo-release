@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+JOB_NAME='mongod'
+output_label="$JOB_NAME"
+export LOG_DIR="/var/vcap/sys/log/$JOB_NAME"
+touch "$LOG_DIR/create_user.stdout.log" "$LOG_DIR/create_user.stderr.log"
+chown vcap:vcap "$LOG_DIR/create_user.stdout.log" "$LOG_DIR/create_user.stderr.log"
+
+# Add all binary packages into $PATH
+declare -A seen_dir
+while read -rd '' f; do
+    seen_dir["${f%/*}"]=1
+done < <(find /var/vcap/data/packages -type f -executable -print0)
+export PATH="${!seen_dir[@]}:$PATH"
+
+#exec chpst -u vcap:vcap "$(find /var/vcap/data/jobs/mongod -type f -name cu_ctl.sh -print -quit)" 1>> "$LOG_DIR/create_user.stdout.log" 2>> "$LOG_DIR/create_user.stderr.log"
+#printf '%s\n' 'use admin' 'db.system.users.find({"user": "<%= p("mongod.MONGODB_USER") %>"}).count()  == 0? db.createUser({"user" : "<%= p("mongod.MONGODB_USER") %>", "pwd" : "<%= p("mongod.MONGODB_PASS") %>", "roles" : ["root"]}) : db.updateUser("<%= p("mongod.MONGODB_USER") %>", {"pwd" : "<%= p("mongod.MONGODB_PASS") %>","roles" : [{ role: "userAdminAnyDatabase", db: "admin" }]});' | mongo -
+
+#echo 'use admin' 'db.system.users.find({"user": "<%= p("mongod.MONGODB_USER") %>"}).count()  == 0? db.createUser({"user" : "<%= p("mongod.MONGODB_USER") %>", "pwd" : "<%= p("mongod.MONGODB_PASS") %>", "roles" : ["root"]}) : db.updateUser("<%= p("mongod.MONGODB_USER") %>", {"pwd" : "<%= p("mongod.MONGODB_PASS") %>","roles" : [{ role: "userAdminAnyDatabase", db: "admin" }]});' > "$LOG_DIR/added_user.js"
+
+exec chpst -u vcap:vcap printf '%s\n' 'use admin;' 'db.createUser({user: "monguser", pwd: "mongpass", roles: ["root"]});' | mongo -
+
+echo "Added user: <%= p("mongod.MONGODB_USER") %>"

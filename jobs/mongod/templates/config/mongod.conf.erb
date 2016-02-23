@@ -13,7 +13,7 @@ storage:
 
 security:
   authorization: enabled
-  keyFile: /srv/mongodb/keyfile
+  keyFile: /var/vcap/jobs/mongodb/config/mongodb-keyfile
 
 net:
   bindIp: <%= p("mongod.MONGODB_BINDIP") %>
