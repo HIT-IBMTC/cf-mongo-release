@@ -10,3 +10,5 @@ if [ ! -s "${package::-1}/$file" ]; then
   mkdir -p "${package::-1}"
   wget -qO "${package::-1}/$file" --content-disposition "$url"
 fi
+
+exit 0

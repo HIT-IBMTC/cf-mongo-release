@@ -9,3 +9,5 @@ if [ ! -s "$package/$file" ]; then
   mkdir -p "$package"
   wget -qO "$package/$file" --content-disposition "$url"
 fi
+
+exit 0

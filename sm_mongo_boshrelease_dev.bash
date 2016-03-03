@@ -51,14 +51,18 @@ select_infrastructure() {
 }
 
 prepare_blobs() {
-  [[ -d ${releasePath}/blobs ]] || mkdir ${releasePath}/blobs
+  [ -d "${releasePath}/blobs" ] || mkdir "${releasePath}/blobs"
   echo "Preparing all packages..."
-  for script in ${releasePath}/packages/*/prepare
+
+  #find -path './packages/*' -name prepare -type f -exec bash -c "[ -s ${releasePath}/blobs/${0:2} ] && ( echo $releasePath/blobs/${0:2}; cd ${releasePath}/blobs ; $SHELL ${releasePath}/${0:2} )" {} \;
+  for prep in $(find -path './packages/*' -name prepare -type f)
   do
-    if [[ -s ${script} ]]
+    if [ -s ${prep} ]
     then
-      echo ${script}
-      ( cd ${releasePath}/blobs ; ${SHELL} ${script} )
+      echo ${prep}
+      ( cd ${releasePath}/blobs ; ${SHELL} ${releasePath}/${prep} )
+    else
+      echo Could not find ${prep}
     fi
   done
 }
@@ -80,7 +84,7 @@ releasePath=$(cd $(dirname $0) ; echo $PWD)
 tmpPath=${releasePath}/tmp
 manifestsPath=${releasePath}/manifests
 stemcellsPath=${releasePath}/stemcells
-releaseName=$(awk -F: '/final_name/{print $2}' config/final.yml | tr -d ' ')
+releaseName=$(awk -F: '/final_name/{print $2}' $releasePath/config/final.yml | tr -d ' ')
 templatesPath="${releasePath}/templates"
 
 if (( $# > 0 ))
