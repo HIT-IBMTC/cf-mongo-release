@@ -27,7 +27,7 @@ cf login \
 domain=$(cf domains); domain=($domain); domain="${domain[9]}"
 
 cat > env.yml << EOF
-<%= d={'env' => p('mongod'), 'applications' => [{'domain' => 'REPLACE_THIS_DOMAIN'}] }; d.to_yaml %>
+<%= {'env' => p('mongod'), 'applications' => [{'domain' => 'REPLACE_THIS_DOMAIN'}] }.to_yaml %>
 EOF
 sed -i "0,/REPLACE_THIS_DOMAIN/s//$domain/" env.yml
 

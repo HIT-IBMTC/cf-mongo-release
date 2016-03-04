@@ -32,16 +32,6 @@ jobs:
       MONGODB_REPLSET_SECURED: false
       MONGODB_REPLSET_KEY: ''
       MONGODB_REPLSET_NAME: ''
-  - name: create-user
-    templates:
-    - name: create-user
-    instances: 1
-    lifecycle: errand
-    resource_pool: small_z1
-    networks:
-      - name: sm_mongo1
-        static_ips: (( static_ips(1) ))
-    env: (( grab jobs.mongod.env ))
   - name: register-broker
     templates:
     - name: register-broker
@@ -50,7 +40,7 @@ jobs:
     resource_pool: small_z1
     networks:
       - name: sm_mongo1
-        static_ips: (( static_ips(2) ))
+        static_ips: (( static_ips(1) ))
   - name: deregister-broker
     templates:
     - name: deregister-broker
@@ -59,6 +49,6 @@ jobs:
     resource_pool: small_z1
     networks:
       - name: sm_mongo1
-        static_ips: (( static_ips(3) ))
+        static_ips: (( static_ips(2) ))
 
 properties: {}
