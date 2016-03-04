@@ -27,8 +27,9 @@ cf login \
 domain=$(cf domains); domain=($domain); domain="${domain[9]}"
 
 cat > env.yml << EOF
-<%= {'env' => p('mongod')}.to_yaml %>
+<%= d={'env' => p('mongod'), 'applications' => [{'domain' => 'REPLACE_THIS_DOMAIN'}] }; d.to_yaml %>
 EOF
+sed -i "0,/REPLACE_THIS_DOMAIN/s//$domain/" env.yml
 
 spruce merge manifest.yml env.yml > new_manifest.yml
 
