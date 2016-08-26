@@ -1,20 +1,32 @@
 systemLog:
    destination: file
-   path: "<%= p("mongod.MONGODB_SYSTEMLOG") %>"
+   path: "<%= p("mongod.path.log") %>"
    quiet: false
    logAppend: true
 
 storage:
-  dbPath: "<%= p("mongod.MONGODB_STORAGE_DBPATH") %>"
+  dbPath: "<%= p("mongod.storage.path") %>"
   directoryPerDB: true
-  smallFiles: true
+  engine: <%= p("mongod.storage.engine") %>
+  mmapv1:
+    smallFiles: true
   journal:
-    enabled: true
+    enabled: <%= p("mongod.storage.journal") %>
 
+<% if p("mongod.replSet.enabled") and p("mongod.replSet.secured") %>
 security:
   authorization: enabled
-  keyFile: /var/vcap/jobs/mongodb/config/mongodb-keyfile
+  keyFile: /var/vcap/jobs/mongod/config/mongodb-keyfile
+<% end %>
+
+processManagement:
+   fork: true
+
+<% if_p("mongod.replSet.enabled", "mongod.replSet.name") do %>
+replication:
+  replSetName: "<%= p("mongod.replSet.name") %>"
+<% end %>
 
 net:
-  bindIp: <%= p("mongod.MONGODB_BINDIP") %>
-  port: <%= p("mongod.MONGODB_PORT") %>
+  bindIp: <%= p("mongod.nodes.bind_ip") %>
+  port: <%= p("mongod.nodes.port") %>

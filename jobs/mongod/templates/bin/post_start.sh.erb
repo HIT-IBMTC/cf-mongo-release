@@ -1,10 +1,33 @@
 #!/usr/bin/env bash
-
+<%
+  def discover_external_ip
+    networks = spec.networks.marshal_dump
+    _, network = networks.find do |_name, network_spec|
+      network_spec.default
+    end
+    if !network
+      _, network = networks.first
+    end
+    if !network
+      raise "Could not determine IP via network spec: #{networks}"
+    end
+    network.ip
+  end
+  network_ip = discover_external_ip
+%>
 JOB_NAME='mongod'
 output_label="$JOB_NAME"
 export LOG_DIR="/var/vcap/sys/log/$JOB_NAME"
+LOG_FILE="$LOG_DIR/create_user.log"
 touch "$LOG_DIR/create_user.stdout.log" "$LOG_DIR/create_user.stderr.log"
 chown vcap:vcap "$LOG_DIR/create_user.stdout.log" "$LOG_DIR/create_user.stderr.log"
+
+function log() {
+	timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+	echo "========================================================================================"
+	echo -e "[$timestamp]: $1"
+	echo "========================================================================================"
+}
 
 # Add all binary packages into $PATH
 declare -A seen_dir
@@ -13,11 +36,22 @@ while read -rd '' f; do
 done < <(find /var/vcap/data/packages -type f -executable -print0)
 export PATH="${!seen_dir[@]}:$PATH"
 
-#exec chpst -u vcap:vcap "$(find /var/vcap/data/jobs/mongod -type f -name cu_ctl.sh -print -quit)" 1>> "$LOG_DIR/create_user.stdout.log" 2>> "$LOG_DIR/create_user.stderr.log"
-#printf '%s\n' 'use admin' 'db.system.users.find({"user": "<%= p("mongod.MONGODB_USER") %>"}).count()  == 0? db.createUser({"user" : "<%= p("mongod.MONGODB_USER") %>", "pwd" : "<%= p("mongod.MONGODB_PASS") %>", "roles" : ["root"]}) : db.updateUser("<%= p("mongod.MONGODB_USER") %>", {"pwd" : "<%= p("mongod.MONGODB_PASS") %>","roles" : [{ role: "userAdminAnyDatabase", db: "admin" }]});' | mongo -
+<% if spec.bootstrap %>
+# Get a replication status from the first node and make initial configuration if neccessary
+repl_status=$(mongo --quiet  --eval "rs.status().errmsg")
+if [[ "$repl_status" == "no replset config has been received" ]]; then
+    # Try to inizialize (fails once already initialized) then force reconfiguration
+    firstCfg="{_id : \"<%= p("mongod.replSet.name") %>\", members : [{_id : 0, host : \"<%= network_ip %>\"}]}"
+    log "First time rs.initialization on the first node...\nConfig: $firstCfg"
+    exec chpst -u vcap:vcap printf '%s\n' 'use admin;' "rs.initiate($firstCfg);" | mongo  -
+    log "Return code for first time initialization: $?"
 
-#echo 'use admin' 'db.system.users.find({"user": "<%= p("mongod.MONGODB_USER") %>"}).count()  == 0? db.createUser({"user" : "<%= p("mongod.MONGODB_USER") %>", "pwd" : "<%= p("mongod.MONGODB_PASS") %>", "roles" : ["root"]}) : db.updateUser("<%= p("mongod.MONGODB_USER") %>", {"pwd" : "<%= p("mongod.MONGODB_PASS") %>","roles" : [{ role: "userAdminAnyDatabase", db: "admin" }]});' > "$LOG_DIR/added_user.js"
+    # just to be sure
+    sleep 5
 
-exec chpst -u vcap:vcap printf '%s\n' 'use admin;' 'db.createUser({user: "monguser", pwd: "mongpass", roles: ["root"]});' | mongo -
-
-echo "Added user: <%= p("mongod.MONGODB_USER") %>"
+    # Create root user
+    log "Creating MongoDB user <%= p("mongod.root.user") %>..."
+    exec chpst -u vcap:vcap printf '%s\n' 'use admin;' "db.createUser({user: \"<%= p("mongod.root.user") %>\", pwd: \"<%= p("mongod.root.pass") %>\", roles: [\"root\"]})" | mongo -
+    log "Return code for creating MongoDB user <%= p("mongod.root.user") %>: $?"
+fi
+<% end %>

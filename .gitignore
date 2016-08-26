@@ -8,6 +8,7 @@ blobs/*
 .dev_builds
 .vagrant
 .idea
+.vscode
 .DS_Store
 .final_builds/jobs/**/*.tgz
 .final_builds/packages/**/*.tgz
@@ -17,3 +18,4 @@ blobs/*
 #*
 tmp
 my*.yml
+templates/stub.yml

@@ -51,9 +51,8 @@ do
   chmod 775 ${dir}
 done
 
-# Keyfile
-keyfile=/var/vcap/jobs/mongodb/config/mongodb-keyfile
-openssl rand -base64 741 > "$keyfile"
+# Keyfile (created from template)
+keyfile=/var/vcap/jobs/mongod/config/mongodb-keyfile
 chmod 600 "$keyfile"
 chown vcap:vcap "$keyfile"
 

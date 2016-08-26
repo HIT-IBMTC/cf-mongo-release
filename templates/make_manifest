@@ -11,8 +11,8 @@ fail() {
 	echo >&2 $*
 }
 
-if [[ "$infrastructure" != "aws-ec2" && "$infrastructure" != "warden" ]] ; then
-  fail "usage: ./make_manifest <aws-ec2|warden>"
+if [[ "$infrastructure" != "aws-ec2" && "$infrastructure" != "warden"  && "$infrastructure" != "openstack" ]] ; then
+  fail "usage: ./make_manifest <aws-ec2|warden|openstack>"
   exit 1
 fi
 
@@ -20,6 +20,7 @@ case "${infrastructure}/${STEMCELL_OS}" in
   (warden/*)       STEMCELL_URL="https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent" ;;
   (aws-ec2/ubuntu) STEMCELL_URL="https://bosh.io/d/stemcells/bosh-aws-xen-ubuntu-trusty-go_agent" ;;
   (aws-ec2/centos) STEMCELL_URL="https://bosh.io/d/stemcells/bosh-aws-xen-centos-7-go_agent" ;;
+  (openstack/ubuntu) STEMCELL_URL="https://bosh.io/d/stemcells/bosh-openstack-kvm-ubuntu-trusty-go_agent" ;;
   (*)
     fail "Invalid infrastructure or OS specified."
     exit 1
@@ -41,6 +42,11 @@ fi
 
 if [[ $infrastructure = "aws-ec2" && ${DIRECTOR_CPI} != "aws" ]]; then
   fail "Not targeting an AWS BOSH. Please make sure you have run 'bosh target' and are targeting an AWS BOSH before running this script."
+  exit 1
+fi
+
+if [[ $infrastructure = "openstack" && ${DIRECTOR_CPI} != "openstack" ]]; then
+  fail "Not targeting an OpenStack BOSH. Please make sure you have run 'bosh target' and are targeting an OpenStack BOSH before running this script."
   exit 1
 fi
 

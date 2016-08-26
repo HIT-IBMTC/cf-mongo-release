@@ -1,3 +1,4 @@
+#TODO make it work
 meta:
   environment: ~
 
@@ -18,20 +19,17 @@ jobs:
     networks:
       - name: sm_mongo1
         static_ips: (( static_ips(0) ))
-    env:
-      MONGODB_USER: (( grab properties.env.MONGODB_USER || "monguser" ))
-      MONGODB_PASS: (( grab properties.env.MONGODB_PASS || "mongpass" ))
-      MONGODB_PORT: (( grab properties.env.MONGODB_PORT || 27017 ))
-      MONGODB_DATABASE: (( grab properties.env.MONGODB_DATABASE || "anatas" ))
-      MONGODB_HOST: (( grab jobs.mongod.networks[0].static_ips[0] ))
-      MONGODB_URI: (( concat "mongodb://" jobs.mongod.env.MONGODB_USER ":" jobs.mongod.env.MONGODB_PASS "@" jobs.mongod.env.MONGODB_HOST ":" jobs.mongod.env.MONGODB_PORT "/" jobs.mongod.env.MONGODB_DATABASE "?authSource=admin" ))
-      MONGODB_BINDIP: 0.0.0.0
-      MONGODB_STORAGE_DBPATH: (( grab properties.env.MONGODB_DBPATH || "/var/vcap/store/mongod" ))
-      MONGODB_SYSTEMLOG: (( grab properties.env.MONGODB_SYSTEMLOG || "/var/vcap/sys/log/mongod/mongod.log" ))
-      MONGODB_REPLSET_DISABLED: true
-      MONGODB_REPLSET_SECURED: false
-      MONGODB_REPLSET_KEY: ''
-      MONGODB_REPLSET_NAME: ''
+
+  - name: replset
+    instances: 1
+    lifecycle: errand
+    networks:
+    - name: sm_mongo1
+      static_ips: (( static_ips(1) ))
+    resource_pool: errand_pool
+    templates:
+    - name: replset
+
   - name: register-broker
     templates:
     - name: register-broker
@@ -40,7 +38,7 @@ jobs:
     resource_pool: small_z1
     networks:
       - name: sm_mongo1
-        static_ips: (( static_ips(1) ))
+        static_ips: (( static_ips(2) ))
   - name: deregister-broker
     templates:
     - name: deregister-broker
@@ -49,6 +47,28 @@ jobs:
     resource_pool: small_z1
     networks:
       - name: sm_mongo1
-        static_ips: (( static_ips(2) ))
+        static_ips: (( static_ips(3) ))
 
-properties: {}
+properties:
+  mongod:
+    replSet:
+      enabled: (( grab properties.mongod.replSet.enabled || true ))
+      secured: (( grab properties.mongod.replSet.secured || true ))
+      name: (( grab properties.mongod.replSet.name || true ))
+      key: (( grab properties.mongod.replSet.key || RANDOM_KEY_WITH_MORE_THAN_4_CHARACTERS ))
+      host: (( grab jobs.mongod.networks[0].static_ips[0] ))
+    nodes:
+      ips: *nodes
+      bind_ip: 0.0.0.0
+      port: 27017
+    path:
+      log: /var/vcap/sys/log/mongod/mongod.log
+      uri: mongodb://monguser:mongpass@192.168.3.10:27017/anatas?authSource=admin # TODO
+    storage:
+      path: /var/vcap/store/mongod
+      engine: wiredTiger
+      journal: true
+    root:
+      user: rootuser
+      pass: password
+      database: anatas # TODO useless

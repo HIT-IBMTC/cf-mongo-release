@@ -1,6 +1,0 @@
----
-blobstore:
-  provider: local
-  options:
-    blobstore_path: /tmp/anatas-blobs
-final_name: sm-mongo

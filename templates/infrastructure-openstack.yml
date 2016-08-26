@@ -1,0 +1,42 @@
+meta:
+  environment: mongodb
+
+  stemcell:
+    name: bosh-openstack-kvm-ubuntu-trusty-go_agent
+    version: latest
+
+update:
+  canaries: 1
+  max_in_flight: 50
+  canary_watch_time: 1000-30000
+  update_watch_time: 1000-30000
+
+jobs:
+  - name: mongod
+    networks:
+      - name: sm_mongo1
+
+compilation:
+  cloud_properties:
+    name: random
+    instance_type: c1.medium
+
+resource_pools:
+  - name: small_z1
+    cloud_properties:
+      name: random
+      instance_type: c1.small
+  - name: errand_pool
+    cloud_properties:
+      name: random
+      instance_type: b1.micro
+
+networks:
+- name: sm_mongo1
+  type: manual
+  subnets:
+  - range: 10.244.147.0/24
+    name: sm_mongo1
+    gateway: 10.244.147.1
+    static:
+      - 10.244.147.2 - 10.244.147.60
