@@ -1,6 +1,6 @@
-# BOSH Release for sm-mongo
-
-MongoDB bosh release. See also: [cf-mongo-broker](https://github.com/Anatas/cf-mongo-broker).
+# BOSH Release for MongoDB
+## Work In Progress
+### Meaning don't use it. Also it is my first experience with BOSH.
 
 ## Usage
 
