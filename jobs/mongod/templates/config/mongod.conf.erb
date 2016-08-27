@@ -13,7 +13,7 @@ storage:
   journal:
     enabled: <%= p("mongod.storage.journal") %>
 
-<% if p("mongod.replSet.enabled") and p("mongod.replSet.secured") %>
+<% if p("mongod.replSet.enabled") %>
 security:
   authorization: enabled
   keyFile: /var/vcap/jobs/mongod/config/mongodb-keyfile

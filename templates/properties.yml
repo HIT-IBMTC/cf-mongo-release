@@ -1,9 +1,20 @@
 properties:
-  mongod: (( grab jobs.mongod.env ))
-  cf:
-    api_endpoint: (( grab properties.custom_cf.api_endpoint || "api.bosh-lite.com" ))
-    skip_ssl_verification: (( grab properties.custom_cf.skip_ssl_verification || true ))
-    user: (( grab properties.custom_cf.user || "admin" ))
-    password: (( grab properties.custom_cf.password || "admin" ))
-    org: (( grab properties.custom_cf.org || "foo_org" ))
-    space: (( grab properties.custom_cf.space || "foo_space" ))
+  mongod:
+    replSet:
+      enabled: (( grab properties.mongod.replSet.enabled || true ))
+      name: (( grab properties.mongod.replSet.name || true ))
+      key: (( grab properties.mongod.replSet.key || RANDOM_KEY_WITH_MORE_THAN_4_CHARACTERS ))
+    nodes:
+      ips: (( grab jobs.mongod.networks[0].static_ips ))
+      bind_ip: 0.0.0.0
+      port: 27017
+    path:
+      log: /var/vcap/sys/log/mongod/mongod.log
+      uri: (( concat  "mongodb://" properties.mongod.root.user ":" properties.mongod.root.pass "@" jobs.mongod.networks[0].static_ips[0] ":" properties.mongod.nodes.port "," jobs.mongod.networks[0].static_ips[1] ":" properties.mongod.nodes.port "," jobs.mongod.networks[0].static_ips[2] ":" properties.mongod.nodes.port  "/admin?authSource=admin" )) # TODO
+    storage:
+      path: /var/vcap/store/mongod
+      engine: wiredTiger
+      journal: true
+    root:
+      user: rootuser
+      pass: password

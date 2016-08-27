@@ -2,7 +2,7 @@
 
 set -e
 
-template_prefix="sm-mongo"
+template_prefix="mongodb"
 STEMCELL_OS=${STEMCELL_OS:-ubuntu}
 
 infrastructure=$1
@@ -69,7 +69,7 @@ tmpdir=$release/tmp
 
 mkdir -p $tmpdir
 cp $templates/stub.yml $tmpdir/stub-with-uuid.yml
-echo $DIRECTOR_NAME $DIRECTOR_CPI $DIRECTOR_UUID $STEMCELL
+#echo $DIRECTOR_NAME $DIRECTOR_CPI $DIRECTOR_UUID $STEMCELL
 perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" $tmpdir/stub-with-uuid.yml
 perl -pi -e "s/NAME/$NAME/g" $tmpdir/stub-with-uuid.yml
 perl -pi -e "s/STEMCELL/$STEMCELL/g" $tmpdir/stub-with-uuid.yml
@@ -84,7 +84,7 @@ spruce merge --prune meta \
   $templates/infrastructure-${infrastructure}.yml \
 	$templates/properties.yml \
   $tmpdir/stub-with-uuid.yml \
-  $* > $tmpdir/$NAME-manifest.yml
+  $*
 
-bosh deployment $tmpdir/$NAME-manifest.yml
-bosh status
+#bosh deployment $tmpdir/$NAME-manifest.yml
+#bosh status

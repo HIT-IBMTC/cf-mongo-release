@@ -1,4 +1,3 @@
-#TODO make it work
 meta:
   environment: ~
 
@@ -13,19 +12,19 @@ jobs:
   - name: mongod
     templates:
     - name: mongod
-    instances: 1
+    instances: 3
     persistent_disk: 0
     resource_pool: small_z1
     networks:
       - name: sm_mongo1
-        static_ips: (( static_ips(0) ))
+        static_ips: (( static_ips(0,1,2) ))
 
   - name: replset
     instances: 1
     lifecycle: errand
     networks:
     - name: sm_mongo1
-      static_ips: (( static_ips(1) ))
+      static_ips: (( static_ips(3) ))
     resource_pool: errand_pool
     templates:
     - name: replset
@@ -38,7 +37,7 @@ jobs:
     resource_pool: small_z1
     networks:
       - name: sm_mongo1
-        static_ips: (( static_ips(2) ))
+        static_ips: (( static_ips(4) ))
   - name: deregister-broker
     templates:
     - name: deregister-broker
@@ -47,28 +46,4 @@ jobs:
     resource_pool: small_z1
     networks:
       - name: sm_mongo1
-        static_ips: (( static_ips(3) ))
-
-properties:
-  mongod:
-    replSet:
-      enabled: (( grab properties.mongod.replSet.enabled || true ))
-      secured: (( grab properties.mongod.replSet.secured || true ))
-      name: (( grab properties.mongod.replSet.name || true ))
-      key: (( grab properties.mongod.replSet.key || RANDOM_KEY_WITH_MORE_THAN_4_CHARACTERS ))
-      host: (( grab jobs.mongod.networks[0].static_ips[0] ))
-    nodes:
-      ips: *nodes
-      bind_ip: 0.0.0.0
-      port: 27017
-    path:
-      log: /var/vcap/sys/log/mongod/mongod.log
-      uri: mongodb://monguser:mongpass@192.168.3.10:27017/anatas?authSource=admin # TODO
-    storage:
-      path: /var/vcap/store/mongod
-      engine: wiredTiger
-      journal: true
-    root:
-      user: rootuser
-      pass: password
-      database: anatas # TODO useless
+        static_ips: (( static_ips(5) ))
