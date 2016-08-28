@@ -1,0 +1,32 @@
+systemLog:
+   destination: file
+   path: "<%= p("mongod.path.log") %>"
+   quiet: false
+   logAppend: true
+
+storage:
+  dbPath: "<%= p("mongod.storage.path") %>"
+  directoryPerDB: true
+  engine: <%= p("mongod.storage.engine") %>
+  mmapv1:
+    smallFiles: true
+  journal:
+    enabled: <%= p("mongod.storage.journal") %>
+
+security:
+  authorization: enabled
+<% if p("mongod.replSet.enabled") %>
+  keyFile: /var/vcap/jobs/mongod/config/mongodb-keyfile
+<% end %>
+
+processManagement:
+   fork: true
+
+<% if p("mongod.replSet.enabled") %>
+replication:
+  replSetName: "<%= p("mongod.replSet.name") %>"
+<% end %>
+
+net:
+  bindIp: <%= p("mongod.nodes.bind_ip") %>
+  port: <%= p("mongod.nodes.port") %>

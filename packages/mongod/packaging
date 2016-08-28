@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+ # Available variables
+# $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
+# $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
+export HOME=/var/vcap
+
+UNAME=$(uname | tr "[:upper:]" "[:lower:]")
+if [ "$UNAME" == "linux" ]; then
+    if [ -f /etc/lsb-release -o -d /etc/lsb-release.d ]; then
+        export DISTRO=$(lsb_release -i | cut -d: -f2 | sed s/'^\t'//)
+    else
+        export DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
+    fi
+fi
+[ "$DISTRO" == "" ] && export DISTRO=$UNAME
+unset UNAME
+
+function trusty_install() {
+  pkg=$(find -name 'mongodb-linux-x86_64-ubuntu1404*.tgz' -print -quit)
+  tar xfv "$pkg"
+  >&2 echo "pkg=$pkg, pwd=$PWD, ls=$(ls)"
+  filename=$(basename "$pkg")
+  cp ${filename%.*}/bin/* "$BOSH_INSTALL_TARGET"
+}
+
+if [ "$DISTRO" == 'Ubuntu' ]; then
+  RELEASE=$(lsb_release -r)
+  VERSION="${RELEASE##*[[:space:]]}"
+  unset RELEASE
+  if [ $VERSION != '14.04' ]; then
+    >&2 echo "Can't work with $DISTRO $VERSION. Update script or use a supported stemcell."
+    exit 72
+  fi
+  trusty_install;
+else
+  >&2 echo "Can't work with $DISTRO. Update script or use a supported stemcell."
+  exit 72
+fi

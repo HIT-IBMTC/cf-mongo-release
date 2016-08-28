@@ -1,0 +1,28 @@
+---
+name: replset
+
+packages:
+  - mongod
+
+templates:
+  helpers/manage_nodes.js.erb: helpers/manage_nodes.js
+  bin/errand.sh.erb: bin/run
+
+properties:
+  mongod.nodes.bind_ip:
+    description: IP address that MongoDB binds to in order to listen for connections
+    default: 0.0.0.0
+  mongod.nodes.port:
+    description: TCP port on which the MongoDB instance listens for client connections
+    default: 27017
+  mongod.path.log:
+    description: Sends all diagnostic logging information to a log file instead of to standard output or to the host’s syslog system
+    default: /var/vcap/sys/log/replSet/replSet.log
+  mongod.replSet.name:
+    description:  Specify a replica set name as an argument to this set.
+  mongod.root.user:
+    description: 'MongoDB username'
+  mongod.root.pass:
+    description: 'MongoDB password'
+  mongod.nodes.ips:
+    description: 'List of MongoDBs nodes in replica set'

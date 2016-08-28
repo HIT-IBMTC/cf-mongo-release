@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+package='spruce'
+
+mkdir -p "$BOSH_INSTALL_TARGET/bin"
+chmod +x "$package/$package"
+cp "$package/$package" "$BOSH_INSTALL_TARGET/bin"

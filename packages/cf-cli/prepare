@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+package='cf-cli'
+version='6.15.0'
+file="$package-$version.tar.gz"
+url="https://cli.run.pivotal.io/stable?release=linux64-binary&version=$version"
+
+if [ ! -s "$package/$file" ]; then
+  mkdir -p "$package"
+  wget -qO "$package/$file" --content-disposition "$url"
+fi
+
+exit 0
