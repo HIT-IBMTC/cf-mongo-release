@@ -1,5 +1,0 @@
----
-name: cf-mongo-broker-dist
-dependencies: []
-files:
-  - cf-mongo-broker-dist/cf-mongo-broker-dist.tar.gz

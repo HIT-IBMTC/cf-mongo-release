@@ -1,7 +1,0 @@
----
-name: mongod
-
-dependencies: []
-
-files:
-  - mongod/mongodb-linux-x86_64-ubuntu1404-*.tgz
