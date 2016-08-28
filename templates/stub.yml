@@ -1,0 +1,53 @@
+---
+meta:
+  environment: mongodb
+  security_groups: REPLACE
+  stemcell:
+    name: bosh-openstack-kvm-ubuntu-trusty-go_agent
+
+director_uuid: REPLACE
+
+releases:
+  - name: sm-mongo
+    version: latest
+
+networks:
+- name: sm_mongo1
+  type: manual
+  subnets:
+  - range: REPLACE
+    cloud_properties:
+      net_id: REPLACE
+      security_groups:
+      - REPLACE
+    dns:
+    - REPLACE
+    gateway: REPLACE
+    static:
+      - REPLACE
+    reserved:
+      - REPLACE
+
+properties:
+  mongod:
+    replSet:
+      enabled: true
+      name: REPLICA_SET_NAME_REPLACE
+      key: REPLICA_SET_KEY_MORE_THAN_4_CHARACTERS
+    nodes:
+      bind_ip: 0.0.0.0
+      port: 27017
+    path:
+      log: /var/vcap/sys/log/mongod/mongod.log
+    storage:
+      path: /var/vcap/store/mongod
+      engine: wiredTiger
+      journal: true
+    root:
+      user: MONGODB_ROOT_USERNAME
+      pass: MONGODB_ROOT_PASS
+
+jobs:
+  - name: mongod
+    instances: 3
+    persistent_disk: 10240
