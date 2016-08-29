@@ -15,7 +15,7 @@ cfgNodes.forEach(function(node, index) {
 	nodeWithPort = node + ":" + port;
 	if (hosts.indexOf(nodeWithPort) == -1) {
 		print("Add node " + nodeWithPort);
-		rs.add(node, port);
+		rs.add(nodeWithPort, false); // false for arbiterOnly param
 	}
 });
 
@@ -23,7 +23,7 @@ cfgNodes.forEach(function(node, index) {
 hosts.forEach(function(host, index) {
 	hostWithoutPort = host.split(":", 1).toString();
 	if (cfgNodes.indexOf(hostWithoutPort) == -1) {
-		print("Remove node " + hostWithoutPort + ":" + port);
+		print("Remove node " + host);
 		rs.remove(host);
 	}
 });
