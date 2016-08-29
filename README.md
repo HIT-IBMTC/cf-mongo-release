@@ -1,12 +1,12 @@
 # BOSH Release for MongoDB
 Work In Progress
 
-Meaning don't use it in production (or anywhere).
-Also, this repository is my first experience with BOSH and GitHub.
+Meaning don't use it in production (or anywhere really). But hey, you can help!
+Also, this repository is my first experience with BOSH, GitHub and MongoDB (oh my god).
 
 ## WTF?
-I am trying to make BOSH release of MongoDB with working replication (later maybe even sharding).
-Why don't I use some MongoDB release tested and hardened by the BOSH community? Because I couldn't find one.
+I am trying to make a BOSH release of MongoDB with working replication (later maybe even sharding and CF service broker).
+Why don't I use some existing release tested and hardened by the BOSH community? Because I couldn't find one.
 
 This repository is a fork of https://github.com/ANATAS/mongo-boshrelease.
 
