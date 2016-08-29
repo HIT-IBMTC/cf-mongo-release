@@ -51,3 +51,7 @@ jobs:
   - name: mongod
     instances: 3
     persistent_disk: 10240
+
+update:
+  max_in_flight: 1
+  serial: true
