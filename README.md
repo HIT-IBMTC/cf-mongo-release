@@ -17,12 +17,17 @@ cd mongo-boshrelease
 ./sm_mongo_boshrelease_dev.bash release
 ```
 
-Edit templates/stub.yml and generate a deployment manifest:
+Edit templates/stub.yml, generate a deployment manifest and deploy:
 ```
 cd templates
 ./make_manifest openstack stub.yml > my-mongodb-manifest.yml
 bosh deployment my-mongodb-manifest.yml
 bosh deploy
+```
+
+After the first deployment and after each addition or removal of nodes you also need to run
+```
+bosh run errand replset
 ```
 
 ### Development
