@@ -1,59 +1,28 @@
 # BOSH Release for MongoDB
-## Work In Progress
-### Meaning don't use it. Also it is my first experience with BOSH.
+Work In Progress
+
+Meaning don't use it in production (or anywhere).
+Also, this repository is my first experience with BOSH and GitHub.
+
+## WTF?
+I am trying to make BOSH release of MongoDB with working replication (later maybe even sharding).
+Why don't I use some MongoDB release tested and hardened by the BOSH community? Because I couldn't find one.
+
+This repository is a fork of https://github.com/ANATAS/mongo-boshrelease.
 
 ## Usage
-
 ```
-git clone https://github.com/Anatas/sm-mongo-boshrelease.git
-cd sm-mongo-boshrelease
-```
-
-You may want to start by editing templates/properties.yml. Next upload it to your bosh:
-```
-bosh target BOSH_HOST
-./sm_mongo_boshrelease_dev.bash prepare warden
-bosh upload blobs
-bosh upload release releases/sm-mongo-1.yml
+git clone https://github.com/slowbackspace/mongo-boshrelease.git
+cd mongo-boshrelease
+./sm_mongo_boshrelease_dev.bash release
 ```
 
-For [bosh-lite](https://github.com/cloudfoundry/bosh-lite), you can quickly create a deployment manifest & deploy a cluster:
-
+Edit templates/stub.yml and generate a deployment manifest:
 ```
-templates/make_manifest warden
-bosh -n deploy
-```
-
-For AWS EC2, create a single VM:
-
-```
-templates/make_manifest aws-ec2
-bosh -n deploy
-```
-
-### Override security groups
-
-For AWS & Openstack, the default deployment assumes there is a `default` security group. If you wish to use a different security group(s) then you can pass in additional configuration when running `make_manifest` above.
-
-Create a file `my-networking.yml`:
-
-``` yaml
----
-networks:
-  - name: sm-mongo1
-    type: dynamic
-    cloud_properties:
-      security_groups:
-        - sm-mongo
-```
-
-Where `- sm-mongo` means you wish to use an existing security group called `sm-mongo`.
-
-You now suffix this file path to the `make_manifest` command:
-
-```
-templates/make_manifest openstack-nova my-networking.yml
-bosh -n deploy
+cd templates
+./make_manifest openstack stub.yml > my-mongodb-manifest.yml
+bosh deployment my-mongodb-manifest.yml
+bosh deploy
 ```
 
 ### Development
