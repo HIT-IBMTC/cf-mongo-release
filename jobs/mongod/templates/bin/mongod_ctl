@@ -29,6 +29,11 @@ case $1 in
     ;;
 
   stop)
+    log "Stopping MongoDB..."
+    set +e
+    exec chpst -u vcap:vcap printf '%s\n' 'use admin;' "db.auth(\"<%= p("mongod.root.user") %>\", \"<%= p("mongod.root.pass") %>\")" " if (db.isMaster().ismaster) {print(\"Stepping down as a primary node.\");rs.stepDown();}" | mongo  -
+    set -e
+    log "Calling kill_and_wait..."
     kill_and_wait $PIDFILE
 
     ;;

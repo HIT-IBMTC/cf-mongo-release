@@ -15,19 +15,8 @@
   end
   network_ip = discover_external_ip
 %>
-JOB_NAME='mongod'
-output_label="$JOB_NAME"
-export LOG_DIR="/var/vcap/sys/log/$JOB_NAME"
-LOG_FILE="$LOG_DIR/create_user.log"
-touch "$LOG_DIR/create_user.stdout.log" "$LOG_DIR/create_user.stderr.log"
-chown vcap:vcap "$LOG_DIR/create_user.stdout.log" "$LOG_DIR/create_user.stderr.log"
 
-function log() {
-	timestamp=$(date "+%Y-%m-%d %H:%M:%S")
-	echo "========================================================================================"
-	echo -e "[$timestamp]: $1"
-	echo "========================================================================================"
-}
+source /var/vcap/jobs/mongod/helpers/ctl_setup.sh 'mongod'
 
 # Add all binary packages into $PATH
 declare -A seen_dir
