@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 package='cf-cli'
-version='6.15.0'
+version='6.21.1'
 file="$package-$version.tar.gz"
 url="https://cli.run.pivotal.io/stable?release=linux64-binary&version=$version"
 
