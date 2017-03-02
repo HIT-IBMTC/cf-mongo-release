@@ -37,8 +37,6 @@ Where [options] for the 'prepare', 'manifest' actions are:
 }
 
 select_infrastructure() {
-  infrastructure=${1:-}
-  echo $infrastructure
   if [ "$infrastructure" != "aws-ec2" ] && \
     [ "$infrastructure" != "openstack" ] && \
     [ "$infrastructure" != "vsphere" ] && \
@@ -80,7 +78,9 @@ gen_manifest() {
     $templatesPath/infrastructure-${infrastructure}.yml \
   	$templatesPath/properties.yml \
     $templatesPath/stub.yml \
-    $*
+    $* \
+  > ~/cf-mongo.yml
+  bosh deployment ~/cf-mongo.yml
 }
 
 releasePath=$(cd $(dirname $0) ; echo $PWD)
@@ -89,6 +89,7 @@ templatesPath="${releasePath}/templates"
 if (( $# > 0 ))
 then
   action=$1
+  infrastructure=$2
   shift
 else
   usage
