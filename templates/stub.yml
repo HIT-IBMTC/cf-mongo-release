@@ -22,8 +22,8 @@ properties:
   mongod:
     replSet:
       enabled: true
-      name: replica-set-name # <--- 可修改
-      key: replica_set_key # <--- 可修改,不少于5个字母,不可使用'-'
+      name: replicasetname # <--- 可修改,不少于5个字母,不可使用'-'或'_'
+      key: replicasetkey # <--- 可修改,不少于5个字母,不可使用'-'或'_'
     nodes:
       bind_ip: 0.0.0.0
       port: 27017
