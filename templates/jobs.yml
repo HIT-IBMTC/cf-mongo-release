@@ -17,7 +17,6 @@ jobs:
     - name: route_registrar
       release: cf
     instances: 1
-    persistent_disk: 0
     resource_pool: errand_pool
     networks:
       - name: fcf_mongo
