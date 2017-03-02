@@ -53,18 +53,7 @@ prepare_dev_release() {
   bosh -n upload release
 }
 
-if [[ ${DEBUG:-"false"} == "true" ]]
-then # Enable xtrace with context if debug is true.
-  export PS4='+(${BASH_SOURCE}:${LINENO})> ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
-  set -x
-fi
-
 releasePath=$(cd $(dirname $0) ; echo $PWD)
-tmpPath=${releasePath}/tmp
-manifestsPath=${releasePath}/manifests
-stemcellsPath=${releasePath}/stemcells
-releaseName=$(awk -F: '/final_name/{print $2}' $releasePath/config/final.yml | tr -d ' ')
-templatesPath="${releasePath}/templates"
 
 if (( $# > 0 ))
 then
