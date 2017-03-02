@@ -15,7 +15,6 @@ This repository is a fork of https://github.com/ANATAS/mongo-boshrelease.
 git clone https://github.com/comxtohr/mongo-bosh-release.git
 cd mongo-bosh-release
 ./mongo_bosh_release_dev prepare
-bosh upload blobs
 ```
 
 Edit templates/stub.yml, generate a deployment manifest and deploy:
