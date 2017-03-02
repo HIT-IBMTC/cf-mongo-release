@@ -15,7 +15,7 @@ cf api --skip-ssl-validation $CF_API_URL
 cf api $CF_API_URL
 <% end %>
 
-cf auth $CF_PASSWORD $CF_PASSWORD
+cf auth $CF_USER $CF_PASSWORD
 
 cf disable-service-access p-mongodb
 cf delete-service p-mongodb -f
