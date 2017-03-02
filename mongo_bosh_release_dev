@@ -23,9 +23,7 @@ bosh_target_check() {
 }
 
 usage() {
-  echo "
-Usage: $0 <prepare|blobs|release>
-"
+  echo "Usage: $0 <prepare|blobs|release>"
 }
 
 prepare_blobs() {
