@@ -26,7 +26,7 @@ usage() {
   echo "
 Usage: $0 <prepare|blobs|manifest|release|destroy> [options]
 Where [options] for the 'prepare', 'manifest' and 'stemcell' actions are:
-  'warden' or 'aws-ec2'
+  'warden' or 'aws-ec2' or 'vsphere'
 "
 }
 

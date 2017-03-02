@@ -1,0 +1,45 @@
+meta:
+  environment: fcf-hitnic-dev-mongo # <--- 可修改
+
+  stemcell:
+    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+    version: latest
+
+update:
+  canaries: 1
+  max_in_flight: 4
+  canary_watch_time: 30000-180000
+  update_watch_time: 30000-180000
+
+jobs:
+  - name: mongod
+    networks:
+      - name: sm_mongo1
+    persistent_disk: 4096
+
+compilation:
+  cloud_properties:
+    cpu: 1
+    ram: 4096
+    disk: 4096
+
+resource_pools:
+  - name: small_z1
+    cloud_properties:
+      cpu: 1
+      ram: 4096
+      disk: 4096
+
+networks:
+- name: sm_mongo1
+  subnets:
+  - cloud_properties:
+      name: fcf-mongo # <--- 使用的网络名称
+    dns:
+    - 202.118.224.100 # <--- 根据网络配置调整DNS地址
+    gateway: 10.0.15.1 # <--- 根据网络配置调整网关地址
+    range: 10.0.15.0/24 # <--- 根据网络配置调整网段
+    reserved:
+    - 10.0.15.0 - 10.0.15.10 # <--- 根据网络配置调整预留网段，注意防止冲突
+    static:
+    - 10.0.15.230 - 10.0.15.254 # <--- 根据网络配置调整预留网段，注意防止冲突

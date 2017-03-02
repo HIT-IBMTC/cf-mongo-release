@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 package='spruce'
-version='1.0.3'
+version='1.8.12'
 url="https://github.com/geofffranks/spruce/releases/download/v${version}/spruce-linux-amd64"
 
 if [ ! -s "$package/$package" ]; then
