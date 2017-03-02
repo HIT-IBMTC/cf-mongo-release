@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # abort script on any command that exits with a non zero value
 set -e
 exec 1>> /var/vcap/sys/log/packaging.log
