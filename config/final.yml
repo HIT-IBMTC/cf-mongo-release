@@ -1,0 +1,6 @@
+---
+final_name: fcf-mongo
+blobstore:
+  provider: local
+  options:
+    blobstore_path: /tmp/blobs

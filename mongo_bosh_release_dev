@@ -27,7 +27,6 @@ usage() {
 }
 
 prepare_blobs() {
-  [ -d "${releasePath}/config" ] || mkdir "${releasePath}/config"
   [ -d "${releasePath}/blobs" ] || mkdir "${releasePath}/blobs"
   echo "Preparing all packages..."
 
