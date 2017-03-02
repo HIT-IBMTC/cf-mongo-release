@@ -24,33 +24,12 @@ bosh_target_check() {
 
 usage() {
   echo "
-Usage: $0 <prepare|blobs|manifest|release|destroy> [options]
-Where [options] for the 'prepare', 'manifest' and 'stemcell' actions are:
-  'warden' or 'aws-ec2' or 'vsphere'
+Usage: $0 <prepare|blobs|release>
 "
 }
 
-requireCommands() {
-  for cmd in ${@}
-  do
-    if ! command -v ${cmd} &>/dev/null
-    then
-      echo "${cmd} must be installed and available in the PATH in order to run $0"
-      exit 1
-    fi
-  done
-}
-
-select_infrastructure() {
-  infrastructure=${1:-}
-  if ! [[ -n ${infrastructure:-} ]]
-  then
-    usage
-    fail
-  fi
-}
-
 prepare_blobs() {
+  [ -d "${releasePath}/config" ] || mkdir "${releasePath}/config"
   [ -d "${releasePath}/blobs" ] || mkdir "${releasePath}/blobs"
   echo "Preparing all packages..."
 
@@ -105,23 +84,14 @@ then args=($(echo "${@}"))
 fi
 case ${action} in
   (prepare)
-    if (( ${#args[@]} == 0 ))
-    then
-      usage
-      fail
-    fi
     prepare_blobs
     prepare_dev_release
     ;;
-  (release|dev)
+  (release)
     prepare_dev_release
     ;;
   (blobs)
     prepare_blobs
-    ;;
-  (destroy|delete)
-    echo "bosh -n delete deployment sm-mongo-warden --force"
-    bosh -n delete deployment sm-mongo-warden --force
     ;;
   (*)
     usage
