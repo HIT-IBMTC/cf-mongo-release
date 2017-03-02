@@ -17,4 +17,3 @@ This script will be called from the release directory's 'prepare blobs' script.
 
 The spec file is used to declare the package name, array of dependency package
 names as well as a list of the blob files required by the package script.
-
