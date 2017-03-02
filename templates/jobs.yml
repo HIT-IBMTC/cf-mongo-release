@@ -15,7 +15,7 @@ jobs:
     - name: cf-mongodb-broker
       release: fcf-mongo
     - name: route_registrar
-      release: cf
+      release: routing
     instances: 1
     resource_pool: small_z1
     networks:

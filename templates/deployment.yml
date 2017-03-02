@@ -9,7 +9,7 @@ director_uuid: (( param "please set director_uuid" ))
 releases:
   - name: fcf-mongo
     version: latest
-  - name: cf
+  - name: routing
     version: latest
 
 jobs: (( param "please set jobs" ))
