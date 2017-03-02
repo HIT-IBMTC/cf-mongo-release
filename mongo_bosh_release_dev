@@ -37,7 +37,7 @@ Where [options] for the 'prepare', 'manifest' actions are:
 }
 
 select_infrastructure() {
-  infrastructure=$2
+  infrastructure="$2"
   if [ "$infrastructure" != "aws-ec2" ] && \
     [ "$infrastructure" != "openstack" ] && \
     [ "$infrastructure" != "vsphere" ] && \
