@@ -7,11 +7,11 @@ director_uuid: 2cc0700d-8b46-4e71-a76c-b50c3b39d235 # <--- Director UUID
 properties:
   route_registrar:
     routes:
-    - name: p-mongodb
+    - name: p-mongodb-broker
       port: 80
       registration_interval: 20s
       uris:
-      - p-mongodb.cf.footoo.org # <--- broker域名
+      - p-mongodb-broker.cf.footoo.org # <--- broker域名
   nats:
     machines: # <--- 见cf-deployment.yml
       - 10.0.1.231
