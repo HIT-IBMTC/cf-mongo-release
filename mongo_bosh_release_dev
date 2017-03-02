@@ -23,7 +23,7 @@ bosh_target_check() {
 }
 
 spiff_check() {
-  if ! [ -x "$(command -v spiff)" ]; then
+  if ! command -v spiff &>/dev/null
   then fail "spruce is not installed. Please download at https://github.com/geofffranks/spruce/releases"
   fi
 }
