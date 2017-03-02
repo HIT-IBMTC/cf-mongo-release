@@ -11,7 +11,7 @@ properties:
       port: 80
       registration_interval: 20s
       uris:
-      - p-mongodb-broker.cf.footoo.org # <--- broker域名
+      - p-mongodb-broker.cf.footoo.org #
   nats:
     machines: # <--- 见cf-deployment.yml
     - 10.0.1.231
@@ -39,6 +39,7 @@ properties:
   broker:
     security_user_name: broker-username # <--- 可修改
     security_user_password: broker-password # <--- 可修改
+    host: p-mongodb-broker.cf.footoo.org # <--- broker域名
   cf:
     api_endpoint: https://api.cf.footoo.org # <--- 见cf-stub.yml
     skip_ssl_verification: true
