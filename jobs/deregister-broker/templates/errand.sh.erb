@@ -15,8 +15,6 @@ sso="--sso "
 
 cf login \
   -p '<%= p('cf.password') %>' \
-  -o '<%= p('cf.org') %>' \
-  -s '<%= p('cf.space') %>' \
   ${sso:-''} \
   ${skip_ssl:-''} \
   -a '<%= p('cf.api_endpoint') %>' \

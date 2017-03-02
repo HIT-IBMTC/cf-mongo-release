@@ -9,10 +9,6 @@ templates:
 properties:
   cf.password:
     description: 'Password of the Cloud Foundry user'
-  cf.org:
-    description: 'Cloud Foundry organization into which to install the broker app'
-  cf.space:
-    description: 'Cloud Foundry space into which to install the broker app'
   cf.skip_ssl_verification:
     description: 'Set if target CF uses self-signed certificates'
   cf.sso:

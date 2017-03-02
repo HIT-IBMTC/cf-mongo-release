@@ -44,5 +44,3 @@ properties:
     skip_ssl_verification: true
     user: admin # <--- 见cf-stub.yml
     password: admin-password # <--- 见cf-stub.yml
-    org: REPLACE
-    space: REPLACE

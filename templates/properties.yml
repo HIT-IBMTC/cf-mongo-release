@@ -41,5 +41,3 @@ properties:
     skip_ssl_verification: (( grab properties.cf.skip_ssl_verification || true ))
     user: (( grab properties.cf.user || "admin" ))
     password: (( grab properties.cf.password || "admin" ))
-    org: (( grab properties.cf.org || "foo_org" ))
-    space: (( grab properties.cf.space || "foo_space" ))
