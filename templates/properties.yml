@@ -1,7 +1,7 @@
 properties:
   route_registrar:
     routes:
-    - (( grab properties.broker.routes || REPLACE ))
+    - (( grab properties.route_registrar.routes || REPLACE ))
   nats:
     machines:
     - (( grab properties.nats.machines || REPLACE ))
