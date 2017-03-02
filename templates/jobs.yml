@@ -17,7 +17,7 @@ jobs:
     - name: route_registrar
       release: cf
     instances: 1
-    resource_pool: errand_pool
+    resource_pool: small_z1
     networks:
       - name: fcf_mongo
         static_ips: (( static_ips(3) ))
@@ -28,7 +28,7 @@ jobs:
     networks:
     - name: fcf_mongo
       static_ips: (( static_ips(4) ))
-    resource_pool: errand_pool
+    resource_pool: small_z1
     templates:
     - name: replset
       release: fcf-mongo
@@ -39,7 +39,7 @@ jobs:
       release: fcf-mongo
     instances: 1
     lifecycle: errand
-    resource_pool: errand_pool
+    resource_pool: small_z1
     networks:
       - name: fcf_mongo
         static_ips: (( static_ips(5) ))
@@ -50,7 +50,7 @@ jobs:
       release: fcf-mongo
     instances: 1
     lifecycle: errand
-    resource_pool: errand_pool
+    resource_pool: small_z1
     networks:
       - name: fcf_mongo
         static_ips: (( static_ips(6) ))
