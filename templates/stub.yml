@@ -34,8 +34,8 @@ properties:
       engine: wiredTiger
       journal: true
     root:
-      user: mongodb-root-username # <--- 可修改
-      pass: mongodb-root-password # <--- 可修改
+      user: rootusername # <--- 可修改
+      pass: rootpassword # <--- 可修改
   broker:
     security_user_name: broker-username # <--- 可修改
     security_user_password: broker-password # <--- 可修改
