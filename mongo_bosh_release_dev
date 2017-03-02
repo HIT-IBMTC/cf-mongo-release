@@ -22,6 +22,12 @@ bosh_target_check() {
   esac
 }
 
+spiff_check() {
+  if ! [ -x "$(command -v spiff)" ]; then
+  then fail "spruce is not installed. Please download at https://github.com/geofffranks/spruce/releases"
+  fi
+}
+
 usage() {
   echo "Usage: $0 <prepare|blobs|release>"
 }
@@ -50,6 +56,10 @@ prepare_dev_release() {
   bosh -n upload release
 }
 
+gen_manifest() {
+  echo manifest
+}
+
 releasePath=$(cd $(dirname $0) ; echo $PWD)
 
 if (( $# > 0 ))
@@ -63,6 +73,7 @@ fi
 
 bosh_target_check
 bosh_cli_check
+spiff_check
 
 declare -a args
 if (( ${#@} ))
@@ -78,6 +89,9 @@ case ${action} in
     ;;
   (blobs)
     prepare_blobs
+    ;;
+  (manifest)
+    gen_manifest
     ;;
   (*)
     usage
