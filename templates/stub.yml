@@ -1,34 +1,8 @@
 ---
 meta:
-  environment: mongodb
-  security_groups: REPLACE
-  stemcell:
-    name: bosh-openstack-kvm-ubuntu-trusty-go_agent
+  environment: fcf-hitnic-dev-mongo
 
-director_uuid: REPLACE
-
-releases:
-  - name: sm-mongo
-    version: latest
-  - name: cf
-    version: latest
-
-networks:
-- name: sm_mongo1
-  type: manual
-  subnets:
-  - range: REPLACE
-    cloud_properties:
-      net_id: REPLACE
-      security_groups:
-      - REPLACE
-    dns:
-    - REPLACE
-    gateway: REPLACE
-    static:
-      - REPLACE
-    reserved:
-      - REPLACE
+director_uuid: 2cc0700d-8b46-4e71-a76c-b50c3b39d235 # <--- Director UUID
 
 properties:
   route_registrar:
@@ -37,18 +11,19 @@ properties:
       port: 80
       registration_interval: 20s
       uris:
-      - p-mongodb.DOMAIN_REPLACE
+      - p-mongodb.cf.footoo.org # <--- broker域名
   nats:
-    machines:
-    - REPLACE
-    password: REPLACE
+    machines: # <--- 见cf-deployment.yml
+      - 10.0.1.231
+      - 10.0.2.231
     port: 4222
-    user: REPLACE
+    user: nats-user # <--- 见cf-deployment.yml
+    password: nats-password # <--- 见cf-deployment.yml
   mongod:
     replSet:
       enabled: true
-      name: REPLICA_SET_NAME_REPLACE
-      key: REPLICA_SET_KEY_MORE_THAN_4_CHARACTERS
+      name: replica-set-name # <--- 可修改
+      key: replica_set_key # <--- 可修改,不少于5个字母,不可使用'-'
     nodes:
       bind_ip: 0.0.0.0
       port: 27017
@@ -59,24 +34,15 @@ properties:
       engine: wiredTiger
       journal: true
     root:
-      user: MONGODB_ROOT_USERNAME
-      pass: MONGODB_ROOT_PASS
+      user: mongodb-root-username # <--- 可修改
+      pass: mongodb-root-password # <--- 可修改
   broker:
-    security_user_name: BROKER_USERNAME
-    security_user_password: BROKER_PASSWORD
+    security_user_name: broker-username # <--- 可修改
+    security_user_password: broker-password # <--- 可修改
   cf:
-    api_endpoint: REPLACE
+    api_endpoint: https://api.cf.footoo.org # <--- 见cf-stub.yml
     skip_ssl_verification: true
-    user: REPLACE
-    password: REPLACE
+    user: admin # <--- 见cf-stub.yml
+    password: admin-password # <--- 见cf-stub.yml
     org: REPLACE
     space: REPLACE
-
-jobs:
-  - name: mongod
-    instances: 3
-    persistent_disk: 10240
-
-update:
-  max_in_flight: 1
-  serial: true
