@@ -14,7 +14,7 @@ This repository is a fork of https://github.com/ANATAS/mongo-boshrelease.
 ```
 git clone https://github.com/slowbackspace/mongo-boshrelease.git
 cd mongo-boshrelease
-./sm_mongo_boshrelease_dev.bash release
+./mongo_bosh_release_dev release
 ```
 
 Edit templates/stub.yml, generate a deployment manifest and deploy:
