@@ -1,11 +1,7 @@
 properties:
   route_registrar:
     routes:
-    - name: p-mongodb
-      port: 80
-      registration_interval: 20s
-      uris:
-      - (( grab properties.route_registrar.routes[0].uris || "p-mongodb-broker.bosh-lite.com" ))
+    - (( grab properties.broker.routes || REPLACE ))
   nats:
     machines:
     - (( grab properties.nats.machines || REPLACE ))
