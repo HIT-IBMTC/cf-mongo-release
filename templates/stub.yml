@@ -14,8 +14,8 @@ properties:
       - p-mongodb-broker.cf.footoo.org # <--- broker域名
   nats:
     machines: # <--- 见cf-deployment.yml
-      - 10.0.1.231
-      - 10.0.2.231
+    - 10.0.1.231
+    - 10.0.2.231
     port: 4222
     user: nats-user # <--- 见cf-deployment.yml
     password: nats-password # <--- 见cf-deployment.yml

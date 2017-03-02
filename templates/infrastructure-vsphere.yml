@@ -10,16 +10,11 @@ compilation:
     disk: 4096
 
 resource_pools:
-  - name: small_z1
-    cloud_properties:
-      cpu: 1
-      ram: 4096
-      disk: 4096
-  - name: errand_pool
-    cloud_properties:
-      cpu: 1
-      ram: 4096
-      disk: 4096
+- name: small_z1
+  cloud_properties:
+    cpu: 1
+    ram: 4096
+    disk: 4096
 
 networks:
 - name: fcf_mongo

@@ -1,56 +1,56 @@
 jobs:
+- name: mongod
+  templates:
   - name: mongod
-    templates:
-    - name: mongod
-      release: fcf-mongo
-    instances: 3
-    persistent_disk: 10240
-    resource_pool: small_z1
-    networks:
-      - name: fcf_mongo
-        static_ips: (( static_ips(0,1,2) ))
+    release: fcf-mongo
+  instances: 3
+  persistent_disk: 10240
+  resource_pool: small_z1
+  networks:
+  - name: fcf_mongo
+    static_ips: (( static_ips(0,1,2) ))
 
-  - name: mongodb-broker
-    templates:
-    - name: cf-mongodb-broker
-      release: fcf-mongo
-    - name: route_registrar
-      release: routing
-    instances: 1
-    resource_pool: small_z1
-    networks:
-      - name: fcf_mongo
-        static_ips: (( static_ips(3) ))
+- name: mongodb-broker
+  templates:
+  - name: cf-mongodb-broker
+    release: fcf-mongo
+  - name: route_registrar
+    release: routing
+  instances: 1
+  resource_pool: small_z1
+  networks:
+  - name: fcf_mongo
+    static_ips: (( static_ips(3) ))
 
+- name: replset
+  templates:
   - name: replset
-    instances: 1
-    lifecycle: errand
-    networks:
-    - name: fcf_mongo
-      static_ips: (( static_ips(4) ))
-    resource_pool: small_z1
-    templates:
-    - name: replset
-      release: fcf-mongo
+    release: fcf-mongo
+  instances: 1
+  lifecycle: errand
+  resource_pool: small_z1
+  networks:
+  - name: fcf_mongo
+    static_ips: (( static_ips(4) ))
 
+- name: register-broker
+  templates:
   - name: register-broker
-    templates:
-    - name: register-broker
-      release: fcf-mongo
-    instances: 1
-    lifecycle: errand
-    resource_pool: small_z1
-    networks:
-      - name: fcf_mongo
-        static_ips: (( static_ips(5) ))
+    release: fcf-mongo
+  instances: 1
+  lifecycle: errand
+  resource_pool: small_z1
+  networks:
+  - name: fcf_mongo
+    static_ips: (( static_ips(5) ))
 
+- name: deregister-broker
+  templates:
   - name: deregister-broker
-    templates:
-    - name: deregister-broker
-      release: fcf-mongo
-    instances: 1
-    lifecycle: errand
-    resource_pool: small_z1
-    networks:
-      - name: fcf_mongo
-        static_ips: (( static_ips(6) ))
+    release: fcf-mongo
+  instances: 1
+  lifecycle: errand
+  resource_pool: small_z1
+  networks:
+  - name: fcf_mongo
+    static_ips: (( static_ips(6) ))

@@ -12,18 +12,18 @@ update:
   update_watch_time: 1000-30000
 
 jobs:
-  - name: mongod
-    networks:
-      - name: fcf_mongo
+- name: mongod
+  networks:
+  - name: fcf_mongo
 
 compilation:
   cloud_properties:
     name: random
 
 resource_pools:
-  - name: small_z1
-    cloud_properties:
-      name: random
+- name: small_z1
+  cloud_properties:
+    name: random
 
 networks:
 - name: fcf_mongo
@@ -33,4 +33,4 @@ networks:
     name: fcf_mongo
     gateway: 10.244.147.1
     static:
-      - 10.244.147.2 - 10.244.147.60
+    - 10.244.147.2 - 10.244.147.60

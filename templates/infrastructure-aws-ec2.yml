@@ -9,25 +9,25 @@ meta:
     version: latest
 
 jobs:
-  - name: mongod
-    networks:
-      - name: fcf_mongo
-    persistent_disk: (( grab meta.persistent_disk ))
+- name: mongod
+  networks:
+  - name: fcf_mongo
+  persistent_disk: (( grab meta.persistent_disk ))
 
 compilation:
   cloud_properties:
     instance_type: m3.medium
 
 resource_pools:
-  - name: small_z1
-    cloud_properties:
-      instance_type: m3.medium
+- name: small_z1
+  cloud_properties:
+    instance_type: m3.medium
 
 networks:
-  - name: floating
-    type: vip
-    cloud_properties: {}
-  - name: fcf_mongo
-    type: dynamic
-    cloud_properties:
-      security_groups: (( grab meta.security_groups ))
+- name: floating
+  type: vip
+  cloud_properties: {}
+- name: fcf_mongo
+  type: dynamic
+  cloud_properties:
+    security_groups: (( grab meta.security_groups ))
