@@ -33,7 +33,7 @@ properties:
   broker:
    security_user_name: admin
    security_user_password: admin
-   host: (( grab jobs.mongodb-broker.networks[0].static_ips[0] ))
+   host: (( grab properties.route_registrar.routes[0].uris[0] ))
 
   cf:
     api_endpoint: (( grab properties.cf.api_endpoint || "api.bosh-lite.com" ))

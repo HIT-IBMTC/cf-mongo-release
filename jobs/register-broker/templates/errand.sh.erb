@@ -20,5 +20,5 @@ cf login \
   -a '<%= p('cf.api_endpoint') %>' \
   -u '<%= p('cf.user') %>'
 
-cf create-service-broker p-mongodb <%= p("broker.security_user_name") %> <%= p("broker.security_user_password") %> "<%= p("route_registrar.uris")[0] %>"
+cf create-service-broker p-mongodb <%= p("broker.security_user_name") %> <%= p("broker.security_user_password") %> "<%= p("broker.host") %>"
 cf enable-service-access p-mongodb
