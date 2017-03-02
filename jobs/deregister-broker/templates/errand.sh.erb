@@ -9,7 +9,7 @@ CF_API_URL='<%= p('cf.api_endpoint') %>'
 CF_USER='<%= p('cf.user') %>'
 CF_PASSWORD='<%= p('cf.password') %>'
 
-<% if_p('cf.skip_ssl_verification') do %>
+<% if p('cf.skip_ssl_verification') %>
 cf api --skip-ssl-validation $CF_API_URL
 <% else %>
 cf api $CF_API_URL

@@ -12,7 +12,7 @@ BROKER_URL='<%= p("broker.host") %>'
 BROKER_USERNAME='<%= p("broker.security_user_name") %>'
 BROKER_PASSWORD='<%= p("broker.security_user_password") %>'
 
-<% if_p('cf.skip_ssl_verification') do %>
+<% if p('cf.skip_ssl_verification') %>
 cf api --skip-ssl-validation $CF_API_URL
 <% else %>
 cf api $CF_API_URL
