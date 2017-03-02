@@ -1,5 +1,5 @@
 meta:
-  environment: sm-mongo-warden
+  environment: mongodb
 
   stemcell:
     name: bosh-warden-boshlite-ubuntu-trusty-go_agent
@@ -14,7 +14,7 @@ update:
 jobs:
   - name: mongod
     networks:
-      - name: sm_mongo1
+      - name: fcf_mongo
 
 compilation:
   cloud_properties:
@@ -26,11 +26,11 @@ resource_pools:
       name: random
 
 networks:
-- name: sm_mongo1
+- name: fcf_mongo
   type: manual
   subnets:
   - range: 10.244.147.0/24
-    name: sm_mongo1
+    name: fcf_mongo
     gateway: 10.244.147.1
     static:
       - 10.244.147.2 - 10.244.147.60

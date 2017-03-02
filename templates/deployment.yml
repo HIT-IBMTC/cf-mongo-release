@@ -12,24 +12,23 @@ jobs: (( param "please set jobs" ))
 
 compilation:
   workers: 4
-  network: sm_mongo1
+  network: fcf_mongo
   reuse_compilation_vms: true
   cloud_properties: (( param "please set compilation cloud properties" ))
 
-update:
-  canaries: 1
-  max_in_flight: 1
-  canary_watch_time: 30000-60000
-  update_watch_time: 5000-60000
-  serial: false
-
 resource_pools:
   - name: small_z1
-    network: sm_mongo1
+    network: fcf_mongo
     stemcell: (( grab meta.stemcell ))
     cloud_properties: (( param "please set resource_pool cloud properties" ))
 
   - name: errand_pool
-    network: sm_mongo1
+    network: fcf_mongo
     stemcell: (( grab meta.stemcell ))
     cloud_properties: (( param "please set resource_pool cloud properties" ))
+
+update:
+  canaries: 1
+  max_in_flight: 4
+  canary_watch_time: 30000-180000
+  update_watch_time: 30000-180000

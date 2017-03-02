@@ -1,21 +1,7 @@
 meta:
-  environment: fcf-hitnic-dev-mongo # <--- 可修改
-
   stemcell:
     name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
     version: latest
-
-update:
-  canaries: 1
-  max_in_flight: 4
-  canary_watch_time: 30000-180000
-  update_watch_time: 30000-180000
-
-jobs:
-  - name: mongod
-    networks:
-      - name: sm_mongo1
-    persistent_disk: 4096
 
 compilation:
   cloud_properties:
@@ -29,9 +15,14 @@ resource_pools:
       cpu: 1
       ram: 4096
       disk: 4096
+  - name: errand_pool
+    cloud_properties:
+      cpu: 1
+      ram: 4096
+      disk: 4096
 
 networks:
-- name: sm_mongo1
+- name: fcf_mongo
   subnets:
   - cloud_properties:
       name: fcf-mongo # <--- 使用的网络名称

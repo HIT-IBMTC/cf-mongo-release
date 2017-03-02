@@ -11,7 +11,7 @@ meta:
 jobs:
   - name: mongod
     networks:
-      - name: sm_mongo1
+      - name: fcf_mongo
     persistent_disk: (( grab meta.persistent_disk ))
 
 compilation:
@@ -27,7 +27,7 @@ networks:
   - name: floating
     type: vip
     cloud_properties: {}
-  - name: sm_mongo1
+  - name: fcf_mongo
     type: dynamic
     cloud_properties:
       security_groups: (( grab meta.security_groups ))
