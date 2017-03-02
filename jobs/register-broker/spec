@@ -2,7 +2,6 @@
 name: register-broker
 packages:
   - cf-cli
-  - spruce
 templates:
   errand.sh.erb: bin/run
 
