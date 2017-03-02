@@ -5,20 +5,20 @@ set -u # report the usage of uninitialized variables
 
 PATH=$PATH:/var/vcap/packages/cf-cli/bin # add `cf` to PATH
 
+CF_API_URL='<%= p('cf.api_endpoint') %>'
+CF_USER='<%= p('cf.user') %>'
+CF_PASSWORD='<%= p('cf.password') %>'
+BROKER_URL='<%= p("broker.host") %>'
+BROKER_USERNAME='<%= p("broker.security_user_name") %>'
+BROKER_PASSWORD='<%= p("broker.security_user_password") %>'
+
 <% if_p('cf.skip_ssl_verification') do %>
-skip_ssl="--skip-ssl-validation "
+cf api --skip-ssl-validation $CF_API_URL
+<% else %>
+cf api $CF_API_URL
 <% end %>
 
-<% if_p('cf.sso') do %>
-sso="--sso "
-<% end %>
+cf auth $CF_PASSWORD $CF_PASSWORD
 
-cf login \
-  -p '<%= p('cf.password') %>' \
-  ${sso:-''} \
-  ${skip_ssl:-''} \
-  -a '<%= p('cf.api_endpoint') %>' \
-  -u '<%= p('cf.user') %>'
-
-cf create-service-broker p-mongodb <%= p("broker.security_user_name") %> <%= p("broker.security_user_password") %> "<%= p("broker.host") %>"
+cf create-service-broker p-mongodb $BROKER_USERNAME $BROKER_PASSWORD $BROKER_URL
 cf enable-service-access p-mongodb
