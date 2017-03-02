@@ -22,20 +22,26 @@ bosh_target_check() {
   esac
 }
 
-spiff_check() {
+spruce_check() {
   if ! command -v spruce &>/dev/null
   then fail "spruce is not installed. Please download at https://github.com/geofffranks/spruce/releases"
   fi
 }
 
 usage() {
-  echo "Usage: $0 <prepare|blobs|release>"
+  echo "
+Usage: $0 <prepare|blobs|release> [options]
+Where [options] for the 'prepare', 'manifest' actions are:
+  'aws-ec2', 'openstack', 'vsphere' or 'warden'
+"
 }
 
 select_infrastructure() {
   infrastructure=${1:-}
-  if ! [[ -n ${infrastructure:-} ]]
-  then
+  if [ "$infrastructure" != "aws-ec2" ] && \
+    [ "$infrastructure" != "openstack" ] && \
+    [ "$infrastructure" != "vsphere" ] && \
+    [ "$infrastructure" != "warden" ]; then
     usage
     fail
   fi
@@ -90,7 +96,7 @@ fi
 
 bosh_target_check
 bosh_cli_check
-spiff_check
+spruce_check
 
 declare -a args
 if (( ${#@} ))
