@@ -23,7 +23,7 @@ bosh_target_check() {
 }
 
 spiff_check() {
-  if ! command -v spiff &>/dev/null
+  if ! command -v spruce &>/dev/null
   then fail "spruce is not installed. Please download at https://github.com/geofffranks/spruce/releases"
   fi
 }
@@ -31,6 +31,16 @@ spiff_check() {
 usage() {
   echo "Usage: $0 <prepare|blobs|release>"
 }
+
+select_infrastructure() {
+  infrastructure=${1:-}
+  if ! [[ -n ${infrastructure:-} ]]
+  then
+    usage
+    fail
+  fi
+}
+
 
 prepare_blobs() {
   [ -d "${releasePath}/blobs" ] || mkdir "${releasePath}/blobs"
@@ -57,10 +67,17 @@ prepare_dev_release() {
 }
 
 gen_manifest() {
-  echo manifest
+  spruce merge --prune meta \
+    $templatesPath/deployment.yml \
+    $templatesPath/jobs.yml \
+    $templatesPath/infrastructure-${infrastructure}.yml \
+  	$templatesPath/properties.yml \
+    $templatesPath/stub.yml \
+    $*
 }
 
 releasePath=$(cd $(dirname $0) ; echo $PWD)
+templatesPath="${releasePath}/templates"
 
 if (( $# > 0 ))
 then
@@ -91,6 +108,7 @@ case ${action} in
     prepare_blobs
     ;;
   (manifest)
+    select_infrastructure
     gen_manifest
     ;;
   (*)
