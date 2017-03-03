@@ -33,9 +33,9 @@ jobs:
   - name: fcf_mongo
     static_ips: (( static_ips(4) ))
 
-- name: register-broker
+- name: broker-registrar
   templates:
-  - name: register-broker
+  - name: broker-registrar
     release: fcf-mongo
   instances: 1
   lifecycle: errand
@@ -44,9 +44,9 @@ jobs:
   - name: fcf_mongo
     static_ips: (( static_ips(5) ))
 
-- name: deregister-broker
+- name: broker-deregistrar
   templates:
-  - name: deregister-broker
+  - name: broker-deregistrar
     release: fcf-mongo
   instances: 1
   lifecycle: errand

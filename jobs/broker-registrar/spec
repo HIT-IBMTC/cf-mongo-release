@@ -1,5 +1,5 @@
 ---
-name: deregister-broker
+name: broker-registrar
 packages:
   - cf-cli
 templates:
@@ -16,3 +16,9 @@ properties:
     description: 'Full URL of Cloud Foundry API'
   cf.user:
     description: 'Name of the Cloud Foundry user'
+  broker.security_user_name:
+    description: 'Brokers username'
+  broker.security_user_password:
+    description: 'Brokers password'
+  broker.host:
+    description: 'Full URL of service broker'
