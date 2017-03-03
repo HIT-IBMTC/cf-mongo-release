@@ -5,4 +5,5 @@ dependencies:
 - java
 
 files:
-- cf-mongodb-broker/cloudfoundry-mongodb-service-broker.jar
+- cf-mongodb-broker/src/**/*
+- cf-mongodb-broker/gradlew
