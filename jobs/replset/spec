@@ -2,7 +2,7 @@
 name: replset
 
 packages:
-  - mongod
+- mongod
 
 templates:
   helpers/manage_nodes.js.erb: helpers/manage_nodes.js

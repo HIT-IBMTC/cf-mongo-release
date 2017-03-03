@@ -1,8 +1,8 @@
 ---
 name: cf-mongodb-broker
 
-dependencies: []
+dependencies:
+- java
 
 files:
-  - cf-mongodb-broker/jre-8u121-linux-x64.tar.gz
-  - cf-mongodb-broker/cloudfoundry-mongodb-service-broker.jar
+- cf-mongodb-broker/cloudfoundry-mongodb-service-broker.jar

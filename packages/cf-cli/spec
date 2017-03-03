@@ -2,4 +2,4 @@
 name: cf-cli
 dependencies: []
 files:
-  - cf-cli/cf-cli-*.tar.gz
+- cf-cli/cf-cli-*.tar.gz

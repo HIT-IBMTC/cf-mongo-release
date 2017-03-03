@@ -1,0 +1,7 @@
+---
+name: cf-mongodb-broker
+
+dependencies: []
+
+files:
+- java/jre-8u*-linux-x64.tar.gz

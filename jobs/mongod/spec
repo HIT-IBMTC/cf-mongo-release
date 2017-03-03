@@ -2,7 +2,7 @@
 name: mongod
 
 packages:
-  - mongod
+- mongod
 
 templates:
   bin/monit_debugger: bin/monit_debugger

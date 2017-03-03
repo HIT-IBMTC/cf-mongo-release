@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# abort script on any command that exits with a non zero value
+set -e
+exec 1>> /var/vcap/sys/log/packaging.log
+exec 2>> /var/vcap/sys/log/packaging.err.log
+
+tar xf "$BOSH_PACKAGE_NAME/jre-8u121-linux-x64.tar.gz" -C "$BOSH_PACKAGE_NAME"
+rm "$BOSH_PACKAGE_NAME/jre-8u121-linux-x64.tar.gz"
+cp -r "$BOSH_PACKAGE_NAME" "$BOSH_INSTALL_TARGET"

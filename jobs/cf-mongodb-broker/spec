@@ -2,11 +2,12 @@
 name: cf-mongodb-broker
 
 packages:
-    - cf-mongodb-broker
+- java
+- cf-mongodb-broker
 
 templates:
-    bin/ctl.erb: bin/ctl
-    config/catalog.yml: config/catalog.yml
+  bin/ctl.erb: bin/ctl
+  config/catalog.yml: config/catalog.yml
 
 properties:
   mongod.nodes.ips:
@@ -36,5 +37,3 @@ properties:
     description: 'Broker tags'
   broker.plans:
     description: 'Service plans definitions'
-
-    
