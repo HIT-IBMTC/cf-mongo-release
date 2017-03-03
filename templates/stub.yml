@@ -37,9 +37,10 @@ properties:
       user: rootusername # <--- 可修改
       pass: rootpassword # <--- 可修改
   broker:
+    host: https://p-mongodb-broker.cf.footoo.org # <--- broker域名
     security_user_name: broker-username # <--- 可修改
     security_user_password: broker-password # <--- 可修改
-    host: https://p-mongodb-broker.cf.footoo.org # <--- broker域名
+
   cf:
     api_endpoint: https://api.cf.footoo.org # <--- 见cf-stub.yml
     skip_ssl_verification: true

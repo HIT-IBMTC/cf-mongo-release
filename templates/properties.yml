@@ -27,9 +27,43 @@ properties:
       user: rootuser
       pass: password
   broker:
-   security_user_name: admin
-   security_user_password: admin
-   host: (( grab properties.broker.host || "p-mongodb-broker.bosh-lite.com" ))
+    host: (( grab properties.broker.host || "p-mongodb-broker.bosh-lite.com" ))
+    security_user_name: (( grab properties.broker.security_user_name || "p-mongodb-broker.bosh-lite.com" ))
+    security_user_password: (( grab properties.broker.security_user_password || "p-mongodb-broker.bosh-lite.com" ))
+    id: p-mongodb-broker
+    name: p-mongodb
+    description: MongoDB
+    bindable: true
+    plan_updateable: false
+
+    plans:
+    - id: mongo
+      name: standard
+      description: Shared MongoDB Server
+      metadata:
+        bullets:
+        - Shared MongoDB(3.4.2) replica set
+        costs:
+        - amount:
+            usd: 0
+          unit: month
+        free: true
+
+    tags:
+    - mongodb
+
+    metadata:
+      displayName: MongoDB
+      imageUrl: http://info.mongodb.com/rs/mongodb/images/MongoDB_Logo_Full.png
+      longDescription: Creating a service instance provisions a database. Binding
+        applications provisions unique credentials for each application to access
+        the database.
+      providerDisplayName: fcf
+      documentationUrl: null
+      supportUrl: null
+
+    requires: null
+    dashboard_client: null
 
   cf:
     api_endpoint: (( grab properties.cf.api_endpoint || "api.bosh-lite.com" ))
