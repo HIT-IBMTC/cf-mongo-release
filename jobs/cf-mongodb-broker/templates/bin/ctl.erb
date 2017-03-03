@@ -31,7 +31,6 @@ case $1 in
     BROKER_ROOT="/var/vcap/packages/cf-mongodb-broker/cf-mongodb-broker"
     export PATH="${BROKER_ROOT}/jre1.8.0_121/bin/:$PATH"
     export MONGODB_HOSTS=<%= nodes_ip %>
-    export MONGODB_PORT=<%= p("mongod.nodes.port") %>
     export MONGODB_USERNAME=<%= p("mongod.root.user") %>
     export MONGODB_PASSWORD=<%= p("mongod.root.pass") %>
     export SECURITY_USER_NAME=<%= p("broker.security_user_name") %>
