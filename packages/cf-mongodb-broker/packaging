@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
-
-# abort script on any command that exits with a non zero value
 set -e
-exec 1>> /var/vcap/sys/log/packaging.log
-exec 2>> /var/vcap/sys/log/packaging.err.log
 
-export PATH="/var/vcap/packages/java/bin/:$PATH"
+JAVA_DIR=$(readlink -nf /var/vcap/packages/java/bin)
+
+export PATH="$JAVA_DIR:$PATH"
 
 cp -r "$BOSH_PACKAGE_NAME" "$BOSH_INSTALL_TARGET"
 cd "$BOSH_PACKAGE_NAME"
-bash ./gradlew build -x test
-cp ./build/libs/cloudfoundry-mongodb-service-broker.jar "$BOSH_INSTALL_TARGET"
+./gradlew build -x test
+#cp ./build/libs/cloudfoundry-mongodb-service-broker.jar "$BOSH_INSTALL_TARGET"

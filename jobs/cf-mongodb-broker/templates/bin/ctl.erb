@@ -29,7 +29,7 @@ case $1 in
     echo $$ > $PIDFILE
     # test
     BROKER_ROOT="/var/vcap/packages/cf-mongodb-broker"
-    export PATH="/var/vcap/packages/java/bin/:$PATH"
+    export PATH="/var/vcap/packages/java/bin:$PATH"
     export MONGODB_HOSTS=<%= nodes_ip %>
     export MONGODB_USERNAME=<%= p("mongod.root.user") %>
     export MONGODB_PASSWORD=<%= p("mongod.root.pass") %>
