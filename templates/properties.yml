@@ -47,7 +47,7 @@ properties:
         - amount:
             usd: 0
           unit: month
-        free: true
+      free: true
 
     tags:
     - mongodb
