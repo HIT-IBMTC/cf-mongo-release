@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-
-# abort script on any command that exits with a non zero value
 set -e
 
-tar xzf "java/jre-8u121-linux-x64.tar.gz"
+file="jre-8u121-linux-x64.tar.gz"
+
+tar xzf "java/$file"
 cp -r jre1.8.0_121/*  "$BOSH_INSTALL_TARGET"
