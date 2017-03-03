@@ -28,7 +28,7 @@ case $1 in
 
     echo $$ > $PIDFILE
     # test
-    BROKER_ROOT="/var/vcap/packages/cf-mongodb-broker/cf-mongodb-broker"
+    BROKER_ROOT="/var/vcap/packages/cf-mongodb-broker"
     export PATH="/var/vcap/packages/java/bin/:$PATH"
     export MONGODB_HOSTS=<%= nodes_ip %>
     export MONGODB_USERNAME=<%= p("mongod.root.user") %>
@@ -36,7 +36,7 @@ case $1 in
     export SECURITY_USER_NAME=<%= p("broker.security_user_name") %>
     export SECURITY_USER_PASSWORD=<%= p("broker.security_user_password") %>
 
-    cp /var/vcap/jobs/cf-mongodb-broker/config/catalog.yml /var/vcap/packages/cf-mongodb-broker/cf-mongodb-broker/
+    cp /var/vcap/jobs/cf-mongodb-broker/config/catalog.yml ${BROKER_ROOT}
 
     cd ${BROKER_ROOT}
     exec java -jar cloudfoundry-mongodb-service-broker.jar --server.port=80 \
