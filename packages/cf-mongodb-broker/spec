@@ -5,5 +5,4 @@ dependencies:
 - java
 
 files:
-- cf-mongodb-broker/src/**/*
-- cf-mongodb-broker/gradlew
+- cf-mongodb-broker/**/*
