@@ -1,0 +1,3 @@
+[submodule "src/cf-mongodb-broker"]
+	path = src/cf-mongodb-broker
+	url = https://github.com/comxtohr/mongo-service-broker
