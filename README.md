@@ -27,8 +27,15 @@ bosh deploy
 ```
 
 After the first deployment and after each addition or removal of nodes you also need to run
+
 ```
 bosh run errand replset
+```
+
+To register the broker to Cloud Foundry you need yo run
+
+```
+bosh run errand broker-registrar
 ```
 
 ### Development
