@@ -8,6 +8,7 @@ PATH=$PATH:/var/vcap/packages/cf-cli/bin # add cf to PATH
 CF_API_URL='<%= p('cf.api_endpoint') %>'
 CF_USER='<%= p('cf.user') %>'
 CF_PASSWORD='<%= p('cf.password') %>'
+SERVICE_NAME='<%= p('broker.name')%>'
 
 <% if p('cf.skip_ssl_verification') %>
 cf api --skip-ssl-validation $CF_API_URL
@@ -17,6 +18,6 @@ cf api $CF_API_URL
 
 cf auth $CF_USER $CF_PASSWORD
 
-cf disable-service-access p-mongodb
-cf delete-service p-mongodb -f
-cf delete-service-broker p-mongodb -f
+cf disable-service-access $SERVICE_NAME
+cf delete-service $SERVICE_NAME -f
+cf delete-service-broker $SERVICE_NAME -f

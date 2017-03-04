@@ -28,8 +28,8 @@ properties:
       pass: password
   broker:
     host: (( grab properties.broker.host || "p-mongodb-broker.bosh-lite.com" ))
-    security_user_name: (( grab properties.broker.security_user_name || "p-mongodb-broker.bosh-lite.com" ))
-    security_user_password: (( grab properties.broker.security_user_password || "p-mongodb-broker.bosh-lite.com" ))
+    security_user_name: (( grab properties.broker.security_user_name || "username" ))
+    security_user_password: (( grab properties.broker.security_user_password || "password" ))
     id: p-mongodb-broker
     name: p-mongodb
     description: MongoDB

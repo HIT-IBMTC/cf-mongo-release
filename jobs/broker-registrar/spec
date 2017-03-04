@@ -22,3 +22,5 @@ properties:
     description: 'Brokers password'
   broker.host:
     description: 'Full URL of service broker'
+  broker.name:
+    description: 'Broker name'

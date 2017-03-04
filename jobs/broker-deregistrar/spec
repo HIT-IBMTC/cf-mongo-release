@@ -16,3 +16,5 @@ properties:
     description: 'Full URL of Cloud Foundry API'
   cf.user:
     description: 'Name of the Cloud Foundry user'
+  broker.name:
+    description: 'Broker name'

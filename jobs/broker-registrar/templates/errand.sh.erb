@@ -8,9 +8,10 @@ PATH=$PATH:/var/vcap/packages/cf-cli/bin # add `cf` to PATH
 CF_API_URL='<%= p('cf.api_endpoint') %>'
 CF_USER='<%= p('cf.user') %>'
 CF_PASSWORD='<%= p('cf.password') %>'
-BROKER_URL='<%= p("broker.host") %>'
-BROKER_USERNAME='<%= p("broker.security_user_name") %>'
-BROKER_PASSWORD='<%= p("broker.security_user_password") %>'
+SERVICE_NAME='<%= p('broker.name')%>'
+BROKER_URL='<%= p('broker.host') %>'
+BROKER_USERNAME='<%= p('broker.security_user_name') %>'
+BROKER_PASSWORD='<%= p('broker.security_user_password') %>'
 
 <% if p('cf.skip_ssl_verification') %>
 cf api --skip-ssl-validation $CF_API_URL
@@ -20,5 +21,5 @@ cf api $CF_API_URL
 
 cf auth $CF_USER $CF_PASSWORD
 
-cf create-service-broker p-mongodb $BROKER_USERNAME $BROKER_PASSWORD $BROKER_URL
-cf enable-service-access p-mongodb
+cf create-service-broker $SERVICE_NAME $BROKER_USERNAME $BROKER_PASSWORD $BROKER_URL
+cf enable-service-access $SERVICE_NAME
