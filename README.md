@@ -14,7 +14,9 @@ Why don't I use some existing release tested and hardened by the BOSH community?
 ```
 git clone https://github.com/comxtohr/mongo-bosh-release.git
 cd mongo-bosh-release
-./mongo_bosh_release_dev prepare
+./mongo_bosh_release_dev blobs
+bosh upload blobs
+bosh upload release bosh releases/fcf-mongo/fcf-mongo-1.yml
 ```
 
 Edit `templates/stub.yml` and `templates/infrastucture-vsphere.yml`, generate a deployment manifest and deploy:
