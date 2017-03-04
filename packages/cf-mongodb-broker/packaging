@@ -3,7 +3,7 @@ set -e
 
 mkdir jdk && tar xzf cf-mongodb-broker/jdk-8u121-linux-x64.tar.gz -C jdk
 
-export JAVA_HOME=$(readlink -nf jdk)
+export JAVA_HOME=$(readlink -nf jdk/jdk1.8.0_121)
 
 export PATH="$JAVA_HOME/bin:$PATH"
 
