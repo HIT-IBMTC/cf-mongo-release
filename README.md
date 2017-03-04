@@ -1,4 +1,4 @@
-# BOSH Release for MongoDB
+# Cloud Foundry MongoDB(3.2.4) Service
 
 Working In Progress
 
@@ -8,6 +8,8 @@ Meaning don't use it in production (or anywhere really). But hey, you can help!
 
 I am trying to make a BOSH release of MongoDB with working replication
 Why don't I use some existing release tested and hardened by the BOSH community? Because I couldn't find one.
+
+This repository is a fork of https://github.com/slowbackspace/mongo-boshrelease
 
 ## Usage
 
