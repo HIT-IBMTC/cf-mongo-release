@@ -1,0 +1,7 @@
+---
+builds:
+  dade2a56468656f92ccc68da254038c2ad4b509b:
+    version: dade2a56468656f92ccc68da254038c2ad4b509b
+    sha1: d7ba326dedbaba4a0e9826a42bab9c041cc51d67
+    blobstore_id: bf48e924-828e-4b8d-a139-0941e0d9fabf
+format-version: '2'
