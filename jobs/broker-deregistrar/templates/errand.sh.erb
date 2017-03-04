@@ -18,6 +18,5 @@ cf api $CF_API_URL
 
 cf auth $CF_USER $CF_PASSWORD
 
-cf disable-service-access $SERVICE_NAME
-cf delete-service $SERVICE_NAME -f
+cf purge-service-offering $SERVICE_NAME -f
 cf delete-service-broker $SERVICE_NAME -f
