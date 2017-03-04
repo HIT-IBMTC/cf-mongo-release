@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
-JAVA_DIR=$(readlink -nf /var/vcap/packages/java/bin)
+tar xzf cf-mongodb-broker/jdk-8u121-linux-x64.tar.gz
 
-export PATH="$JAVA_DIR:$PATH"
+export JAVA_HOME=$(readlink -nf ./jdk1.8.0_121)
 
-cp -r "$BOSH_PACKAGE_NAME" "$BOSH_INSTALL_TARGET"
-cd "$BOSH_PACKAGE_NAME"
+export PATH="$JAVA_HOME/bin:$PATH"
+
+cd cf-mongodb-broker
 ./gradlew build -x test
-#cp ./build/libs/cloudfoundry-mongodb-service-broker.jar "$BOSH_INSTALL_TARGET"
+cp ./build/libs/cloudfoundry-mongodb-service-broker.jar "$BOSH_INSTALL_TARGET"
