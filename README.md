@@ -19,9 +19,9 @@ cd mongo-bosh-release
 ./mongo_bosh_release_dev prepare
 ```
 
-Edit templates/stub.yml, generate a deployment manifest and deploy:
+Edit `templates/stub.yml` and `templates/infrastucture-vsphere.yml`, generate a deployment manifest and deploy:
+
 ```
-cd templates
 ./mongo_bosh_release_dev manifest vsphere
 bosh deploy
 ```
