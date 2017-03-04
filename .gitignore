@@ -1,7 +1,8 @@
+.final_builds/*
 config/dev.yml
 config/private.yml
 config/settings.yml
-releases/**/*.tgz
+releases/*
 dev_releases
 blobs/*
 .blobs
