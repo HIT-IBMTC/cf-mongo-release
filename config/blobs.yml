@@ -11,3 +11,7 @@ mongod/mongodb-linux-x86_64-ubuntu1404-3.4.2.tgz:
   object_id: 88c0690a-a823-42c8-adfa-02176d5d58d3
   sha: 9b909922159ed0b86d48bd7b2d95d8893c38d749
   size: 100378742
+cf-mongodb-broker/jdk-8u121-linux-x64.tar.gz:
+  object_id: 2e7e422f-8692-470e-b641-348ff4e4d0da
+  sha: 11f5925366234506730c095a2fd151d8f1212db7
+  size: 183246769
