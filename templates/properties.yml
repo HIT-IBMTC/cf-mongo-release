@@ -2,6 +2,10 @@ properties:
   route_registrar:
     routes:
     - (( grab properties.route_registrar.routes || REPLACE ))
+  syslog:
+    address: (( grab properties.syslog.address || REPLACE ))
+    port: (( grab properties.syslog.port || REPLACE ))
+    transport: (( grab properties.syslog.port || tcp ))
   nats:
     machines:
     - (( grab properties.nats.machines || REPLACE ))

@@ -12,6 +12,10 @@ properties:
       registration_interval: 20s
       uris:
       - p-mongodb-broker.cf.footoo.org #
+  syslog: # <--- 为logsearch准备
+    address: 10.0.6.239 # <--- ls-router地址,见cf-logsearch-with-cf-addon.yml
+    port: 5514
+    transport: tcp
   nats:
     machines: # <--- 见cf-deployment.yml
     - 10.0.1.231

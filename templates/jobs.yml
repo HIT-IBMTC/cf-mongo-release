@@ -3,6 +3,8 @@ jobs:
   templates:
   - name: mongod
     release: fcf-mongo
+  - name: syslog_forwarder
+    release: syslog
   instances: 3
   persistent_disk: 10240
   resource_pool: small_z1
@@ -16,6 +18,8 @@ jobs:
     release: fcf-mongo
   - name: route_registrar
     release: routing
+  - name: syslog_forwarder
+    release: syslog
   instances: 1
   resource_pool: small_z1
   networks:

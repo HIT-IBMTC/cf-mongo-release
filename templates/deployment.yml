@@ -11,6 +11,8 @@ releases:
   version: latest
 - name: routing
   version: latest
+- name: syslog
+  version: latest
 
 jobs: (( param "please set jobs" ))
 
