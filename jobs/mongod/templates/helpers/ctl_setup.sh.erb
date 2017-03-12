@@ -36,7 +36,7 @@ export HOME=${HOME:-/home/vcap}
 declare -A seen_dir
 while read -rd '' f; do
     seen_dir["${f%/*}"]=1
-done < <(find /var/vcap/data/packages -type f -executable -print0)
+done < <(find /var/vcap/data/packages/mongod -type f -executable -print0)
 export PATH="${!seen_dir[@]}:$PATH"
 
 # Setup log, run and tmp folders
