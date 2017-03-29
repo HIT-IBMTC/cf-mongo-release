@@ -2,7 +2,7 @@
 name: cf-mongodb-broker
 
 dependencies:
-- java
+- go
 
 files:
-- cf-mongodb-broker/**/*
+- mongo-service-broker-golang-ultragtx/**/*.go

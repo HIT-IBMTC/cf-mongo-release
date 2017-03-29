@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-file="jre-8u121-linux-x64.tar.gz"
-
-tar xzf "java/$file"
-cp -r jre1.8.0_121/*  "$BOSH_INSTALL_TARGET"

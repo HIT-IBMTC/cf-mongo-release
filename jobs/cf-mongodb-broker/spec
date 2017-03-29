@@ -2,12 +2,11 @@
 name: cf-mongodb-broker
 
 packages:
-- java
 - cf-mongodb-broker
 
 templates:
   bin/ctl.erb: bin/ctl
-  config/catalog.yml: config/catalog.yml
+  config/config.yml.erb: config/config.yml
 
 properties:
   mongod.nodes.ips:

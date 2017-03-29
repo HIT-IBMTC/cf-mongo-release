@@ -1,6 +1,0 @@
-<%=
-params = {
-   "broker" => p('broker')
-}
-YAML.dump(params)
-%>

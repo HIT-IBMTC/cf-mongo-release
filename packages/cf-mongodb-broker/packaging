@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
 set -e
 
-mkdir jdk && tar xzf cf-mongodb-broker/jdk-8u121-linux-x64.tar.gz -C jdk
+PACKAGE_NAME=github.com/FoOTOo/mongo-service-broker-golang-ultragtx
+PACKAGE_DIR=${BOSH_INSTALL_TARGET}/src/${PACKAGE_NAME}
 
-export JAVA_HOME=$(readlink -nf jdk/jdk1.8.0_121)
+mkdir -p $(dirname $PACKAGE_DIR)
 
-export PATH="$JAVA_HOME/bin:$PATH"
+cp -a $(basename $PACKAGE_NAME)/ $PACKAGE_DIR
 
-cd cf-mongodb-broker
-./gradlew build -x test
-cp ./build/libs/cloudfoundry-mongodb-service-broker.jar "$BOSH_INSTALL_TARGET"
+export GOROOT=$(readlink -nf /var/vcap/packages/go)
+export GOPATH=$BOSH_INSTALL_TARGET
+export PATH=$GOROOT/bin:$PATH
+
+go install ${PACKAGE_NAME}
+
+# clean up source artifacts
+rm -rf ${BOSH_INSTALL_TARGET}/src ${BOSH_INSTALL_TARGET}/pkg
+
