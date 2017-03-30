@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-PACKAGE_NAME=github.com/FoOTOo/mongo-service-broker-golang-ultragtx
+PACKAGE_NAME=github.com/FoOTOo/cf-mongodb-broker
 PACKAGE_DIR=${BOSH_INSTALL_TARGET}/src/${PACKAGE_NAME}
 
 mkdir -p $(dirname $PACKAGE_DIR)

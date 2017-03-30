@@ -5,4 +5,4 @@ dependencies:
 - go
 
 files:
-- mongo-service-broker-golang-ultragtx/**/*.go
+- cf-mongodb-broker/**/*.go

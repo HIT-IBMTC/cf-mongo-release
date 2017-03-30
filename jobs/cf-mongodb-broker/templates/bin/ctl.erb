@@ -18,7 +18,7 @@ case $1 in
     BROKER_ROOT="/var/vcap/packages/cf-mongodb-broker"
     export BROKER_CONFIG_PATH=$JOB_DIR/config/config.yml
 
-    exec chpst -u vcap:vcap $BIN_DIR/mongo-service-broker-golang-ultragtx \
+    exec chpst $BIN_DIR/cf-mongodb-broker \
       > >(tee -a $LOG_DIR/cf-mongodb-broker.stdout.log | logger -p local0.info ) \
       2> >(tee -a $LOG_DIR/cf-mongodb-broker.stderr.log | logger -p local0.err )
     ;;
