@@ -1,0 +1,8 @@
+---
+name: cf-mongodb-smoke-tests
+
+dependencies:
+- go
+
+files:
+- cf-mongodb-smoke-tests/**/*

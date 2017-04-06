@@ -71,6 +71,11 @@ properties:
 
   cf:
     api_endpoint: (( grab properties.cf.api_endpoint || "api.bosh-lite.com" ))
+    apps_domain: (( grab properties.cf.apps_domain || "apps.bosh-lite.com" ))
     skip_ssl_verification: (( grab properties.cf.skip_ssl_verification || true ))
     user: (( grab properties.cf.user || "admin" ))
     password: (( grab properties.cf.password || "admin" ))
+
+  smoke_tests:
+    plan_names: [ "standard" ] # same as name in plans
+    timeout_scale: 10

@@ -1,13 +1,13 @@
 ---
-cf-cli/cf-cli-6.25.0.tar.gz:                                                                                                                                                          │Target deployment is 'fcf-hitnic-dev-mongo'
-  object_id: 5922a85e-8a34-45df-a9f9-97666175b659                                                                                                                                     │
-  sha: 82728ff9fed87554a14a2e5d2b4b743b8f2885ae                                                                                                                                       │Setting up ssh artifacts
-  size: 5088758                                                                                                                                                                       │
-go/go1.8.linux-amd64.tar.gz:                                                                                                                                                          │Director task 1118
-  object_id: 4d1c1b30-be1c-49fc-a2d0-e950512576f3                                                                                                                                     │
-  sha: a93fe8fc245e3554f956bc823f30ef4eb23c2068                                                                                                                                       │Task 1118 done
-  size: 89803580                                                                                                                                                                      │Starting interactive shell on job mongodb-broker/0
-mongod/mongodb-linux-x86_64-ubuntu1404-3.4.2.tgz:                                                                                                                                     │Unauthorized use is strictly prohibited. All access and activity
-  object_id: 9b73417a-4ada-457d-855a-cace8c8490cb                                                                                                                                     │is subject to logging and monitoring.
-  sha: 9b909922159ed0b86d48bd7b2d95d8893c38d749                                                                                                                                       │Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 4.4.0-64-generic x86_64)
-  size: 100378742        
+cf-cli/cf-cli-6.25.0.tar.gz:
+  object_id: 5922a85e-8a34-45df-a9f9-97666175b659
+  sha: 82728ff9fed87554a14a2e5d2b4b743b8f2885ae
+  size: 5088758
+go/go1.8.linux-amd64.tar.gz:
+  object_id: 4d1c1b30-be1c-49fc-a2d0-e950512576f3
+  sha: a93fe8fc245e3554f956bc823f30ef4eb23c2068
+  size: 89803580
+mongod/mongodb-linux-x86_64-ubuntu1404-3.4.2.tgz:
+  object_id: 9b73417a-4ada-457d-855a-cace8c8490cb
+  sha: 9b909922159ed0b86d48bd7b2d95d8893c38d749
+  size: 100378742

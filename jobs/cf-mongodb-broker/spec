@@ -25,7 +25,7 @@ properties:
   broker.id:
     description: 'Broker id'
   broker.name:
-    description: 'Broker name'
+    description: 'Broker name, also used in marketplace'
   broker.description:
     description: 'Broker description'
   broker.bindable:

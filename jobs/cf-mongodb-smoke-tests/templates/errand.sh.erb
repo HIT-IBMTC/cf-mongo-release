@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+export GOPATH=/var/vcap/packages/cf-mongodb-smoke-tests
+export GOROOT=$(readlink -nf /var/vcap/packages/go)
+export PATH=/var/vcap/packages/cf-cli/bin:$GOPATH/bin:$GOROOT/bin:$PATH
+
+export REPO_NAME=github.com/FoOTOo/cf-mongodb-smoke-tests
+export REPO_DIR=${GOPATH}/src/${REPO_NAME}
+
+export CONFIG_PATH=/var/vcap/jobs/cf-mongodb-smoke-tests/config.json
+
+pushd ${REPO_DIR}
+ chmod +x ./bin/test
+ ./bin/test
+popd

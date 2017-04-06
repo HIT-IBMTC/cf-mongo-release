@@ -1,0 +1,11 @@
+{
+  "api":                              "<%= p('cf.api_endpoint') %>",
+  "apps_domain":                      "<%= p('cf.apps_domain') %>",
+  "admin_user":                       "<%= p('cf.user') %>",
+  "admin_password":                   "<%= p('cf.password') %>",
+  "service_name":                     "<%= p('broker.name') %>",
+  "plan_names":                       <%= p('smoke_tests.plan_names').to_json %>,
+  "timeout_scale":                    <%= p('smoke_tests.timeout_scale') %>,
+  "skip_ssl_validation":              <%= p('cf.skip_ssl_verification') %>,
+  "create_permissive_security_group": true
+}

@@ -1,0 +1,32 @@
+---
+name: cf-mongodb-smoke-tests
+packages:
+- go
+- cf-mongodb-smoke-tests
+- cf-cli
+templates:
+  config.json.erb: config.json
+  errand.sh.erb: bin/run
+properties:
+  cf.api_endpoint:
+    description: 'Full URL of Cloud Foundry API'
+  cf.apps_domain:
+    description: Domain used by `cf push`ed apps
+  cf.user:
+    description: 'Username of the admin user'
+  cf.password:
+    description: 'Password of the admin user'
+  cf.skip_ssl_verification:
+    description: 'Skip SSL certificate validation'
+    default: true
+  broker.name:
+    description: 'Broker name'
+  smoke_tests.plan_names:
+    description: Service plan names, should be same as broker.plans
+    default: p-redis
+  smoke_tests.org:
+    description: Pre-existing CF organization to be used by the smoke tests errand
+    default: ""
+  smoke_tests.timeout_scale:
+    description: Timeout scale to be used by the smoke tests errand
+    default: 10

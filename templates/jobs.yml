@@ -58,3 +58,14 @@ jobs:
   networks:
   - name: fcf_mongo
     static_ips: (( static_ips(6) ))
+
+- name: smoke-tests
+  templates:
+  - name: cf-mongodb-smoke-tests
+    release: fcf-mongo
+  instances: 1
+  lifecycle: errand
+  resource_pool: small_z1
+  networks:
+  - name: fcf_mongo
+    static_ips: (( static_ips(7) ))

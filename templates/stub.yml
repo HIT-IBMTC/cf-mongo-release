@@ -47,6 +47,7 @@ properties:
 
   cf:
     api_endpoint: https://api.cf.footoo.org # <--- 见cf-stub.yml
+    apps_domain: cfapp.footoo.org # 不可以用 http(s):// 开头
     skip_ssl_verification: true
     user: admin # <--- 见cf-stub.yml
     password: admin-password # <--- 见cf-stub.yml
