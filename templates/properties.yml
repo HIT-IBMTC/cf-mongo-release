@@ -58,13 +58,13 @@ properties:
 
     metadata:
       displayName: MongoDB
-      imageUrl: http://info.mongodb.com/rs/mongodb/images/MongoDB_Logo_Full.png
+      # iconImage: #Base64 image data
       longDescription: Creating a service instance provisions a database. Binding
         applications provisions unique credentials for each application to access
         the database.
       providerDisplayName: fcf
-      documentationUrl: null
-      supportUrl: null
+      documentationUrl: https://github.com/FoOTOo/cf-mongo-release
+      supportUrl: https://github.com/FoOTOo/cf-mongo-release
 
     requires: null
     dashboard_client: null

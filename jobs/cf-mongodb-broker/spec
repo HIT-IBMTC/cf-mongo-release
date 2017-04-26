@@ -32,7 +32,30 @@ properties:
     description: 'is service bindable?'
   broker.plan_updateable:
     description: 'If plan should be updateable'
-  broker.tags:
-    description: 'Broker tags'
   broker.plans:
     description: 'Service plans definitions'
+  broker.tags:
+    description: 'Broker tags'
+  broker.requires:
+    description: 'Broker requires'
+  broker.dashboard_client:
+    description: 'Broker dashboard client url'
+  broker.metadata.displayName:
+    description: 'Broker metadata display name'
+    default: 'MongoDB'
+  broker.metadata.iconImage:
+    description: 'Broker metadata icon'
+    default: 'iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAMAAABrrFhUAAABZVBMVEUAAABrpxttqBpppx1tqBpioyJgoyRlpSBjpCJjpCJtqBptqBptqBpjpCJpph1tqBpgoyRkpCFtqBpmpR9goyRboSdppx1tqBpgoyNfoiVioyJeoiVboSheoiVfoiRfoiVcoSdcoSdtqBpcoSddoiZtqBptqBpioyJhoyNtqBptqBptqBpjpCFdoSZjpCGaw2FtqBr'
+  broker.metadata.longDescription:
+    description: 'Broker metadata long description'
+    default: 'Creating a service instance provisions a database. Binding applications provisions unique credentials for each application to access the database.'
+  broker.metadata.providerDisplayName:
+    description: 'Broker metadata provider display name'
+    default: fcf
+  broker.metadata.documentationUrl:
+    description: 'Broker metadata documentation url'
+    default: https://github.com/FoOTOo/cf-mongo-release
+  broker.metadata.supportUrl:
+    description: 'Broker metadata support url'
+    default: https://github.com/FoOTOo/cf-mongo-release
+
