@@ -45,6 +45,7 @@ properties:
       name: standard
       description: Shared MongoDB Server
       metadata:
+        displayName: Standard
         bullets:
         - Shared MongoDB(3.4.2) replica set
         costs:
