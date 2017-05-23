@@ -36,7 +36,7 @@ properties:
   mongod.replSet.enabled:
     description: Specify if replica set should be configured
   mongod.replSet.name:
-    description:  Specify a replica set name as an argument to this set.
+    description: Specify a replica set name as an argument to this set.
   mongod.replSet.key:
     description: Specify key which will be used in keyfile
   mongod.root.user:

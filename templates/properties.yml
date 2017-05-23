@@ -15,7 +15,7 @@ properties:
   mongod:
     replSet:
       enabled: (( grab properties.mongod.replSet.enabled || true ))
-      name: (( grab properties.mongod.replSet.name || true ))
+      name: (( grab properties.mongod.replSet.name || replicasetname ))
       key: (( grab properties.mongod.replSet.key || RANDOM_KEY_WITH_MORE_THAN_4_CHARACTERS ))
     nodes:
       ips: (( grab jobs.mongod.networks[0].static_ips ))

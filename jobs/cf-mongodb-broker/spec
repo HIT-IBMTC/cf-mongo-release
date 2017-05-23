@@ -18,6 +18,8 @@ properties:
     description: 'MongoDB username'
   mongod.root.pass:
     description: 'MongoDB password'
+  mongod.replSet.name:
+    description: 'MongoDB replica set name'
   broker.security_user_name:
     description: 'Brokers username'
   broker.security_user_password:
