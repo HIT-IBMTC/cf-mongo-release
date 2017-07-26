@@ -1,6 +1,6 @@
 [submodule "src/cf-mongodb-broker"]
 	path = src/cf-mongodb-broker
-	url = git@github.com:FoOTOo/cf-mongodb-broker.git
+	url = https://github.com/FoOTOo/cf-mongodb-broker.git
 [submodule "src/cf-mongodb-smoke-tests"]
 	path = src/cf-mongodb-smoke-tests
-	url = git@github.com:FoOTOo/cf-mongodb-smoke-tests.git
+	url = https://github.com/FoOTOo/cf-mongodb-smoke-tests.git
